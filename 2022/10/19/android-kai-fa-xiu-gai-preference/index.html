@@ -402,7 +402,10 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>记录一下从事Android开发两个月以来学到的东西，虽然以后可能不会从事相关工作，还是纪念一下吧。</p>
-<h1 id="主屏幕设置页面样式"><a href="#主屏幕设置页面样式" class="headerlink" title="主屏幕设置页面样式"></a>主屏幕设置页面样式</h1><h2 id="1-Preference样式修改"><a href="#1-Preference样式修改" class="headerlink" title="1.Preference样式修改"></a>1.Preference样式修改</h2><p>首先需要理解Preference是如何构成的。分析一下preference.xml可知每个item主要有三部分，如下：<br>       <img src="https://cdn.nlark.com/yuque/0/2022/png/2776959/1660725785496-c56b960a-edd7-40e4-9572-2ec688d9b03e.png" alt="preference.png">第一部分为图标区域，第二部分是title和summary区域，第三部分是其他控件区域。</p>
+<h1 id="主屏幕设置页面样式"><a href="#主屏幕设置页面样式" class="headerlink" title="主屏幕设置页面样式"></a>主屏幕设置页面样式</h1><h2 id="1-Preference样式修改"><a href="#1-Preference样式修改" class="headerlink" title="1.Preference样式修改"></a>1.Preference样式修改</h2><p>首先需要理解Preference是如何构成的。分析一下preference.xml可知每个item主要有三部分，如下：</p>
+<pre class="line-numbers language-none"><code class="language-none">{% img [class names] /Users/philcai/blog/source/textImage/Android1-1.png '"" ""' %}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>第一部分为图标区域，第二部分是title和summary区域，第三部分是其他控件区域。</p>
 <p>了解了其大体结构，就可以根据需求进行修改了。</p>
 <p>图标区域没有所以设置为invisibility。中间使用了两个layout来区分，一个是有summary一个没有。</p>
 <p>只有Title的layout里设置字体颜色、居中、margin等。有Summary的需要调整summary的位置和文字大小。</p>
