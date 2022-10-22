@@ -366,7 +366,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    613
+                    886
                 </div>
                 
 
@@ -416,6 +416,31 @@ deploy:
 </ol>
 <p>选好主题之后cd到themes文件夹下，通过 git clone 下载主题代码。<br>修改根目录下的_config.yml 文件 ： theme: sakura。<br>接着运行 hexo clean &amp;&amp; hero g 和 hexo d。耐心等待一段时间再刷新网站。</p>
 <p>这样Hexo快速布置个人博客就结束了，后续想更改主题的细节可以在主题中的_config.yml中进行修改。<br>学习路漫长，诸君一起努力。</p>
+<h2 id="添加图片"><a href="#添加图片" class="headerlink" title="添加图片"></a>添加图片</h2><h3 id="Typora设置"><a href="#Typora设置" class="headerlink" title="Typora设置"></a>Typora设置</h3><p>这里博主使用的是Typora便携MarkDown，在添加图片之前需要更改一下设置。<br>打开typora，选择：<code>偏好设置 - 图像 - 插入图片时</code>，做如下更改：</p>
+<ol>
+<li>复制到指定路径 </li>
+<li>./${filename}</li>
+</ol>
+<p>当插入图片时，会生成一个和文件名相同的文件夹，并将图片存入这个文件夹内。</p>
+<h3 id="Hexo设置"><a href="#Hexo设置" class="headerlink" title="Hexo设置"></a>Hexo设置</h3><ol>
+<li><p>安装 hexo-renderer-marked</p>
+<pre class="line-numbers language-none"><code class="language-none">npm install hexo-renderer-marked<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>在blog根目录下的_config.yml修改配置：post_asset_folder: true。</p>
+</li>
+<li><p>安装插件hex-image-link</p>
+<pre class="line-numbers language-none"><code class="language-none">npm install hexo-image-link --saveNOTE<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+</ol>
+<h2 id="NOTE"><a href="#NOTE" class="headerlink" title="NOTE"></a>NOTE</h2><p>假设文件名: ./test.md</p>
+<p>图片路径: ./test/image.jpg</p>
+<p>当插入图片 image.jpg 到 test.md 中时，<br>typora 的引用路径为</p>
+<pre class="line-numbers language-none"><code class="language-none">![](test/image.jpg)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>Hexo 发布后的引用路径为</p>
+<pre class="line-numbers language-none"><code class="language-none">![](image.jpg)
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>因此，typora的md文件引入hexo时，应转换路径。即删掉图片路径中的 “test/“部分；（此时md文件已不能正常显示图片，而 hexo server 可正常显示)</p>
+<p>插件hexo-image-link帮助实现了这种路径转换。<br>安装后，typora 文件中正常显示的图片，在hexo发布后依旧能正常显示。</p>
 
                 
             </div>
