@@ -377,7 +377,7 @@ public void bubbleSort(intp[] l">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    482
+                    1.4k
                 </div>
                 
 
@@ -471,10 +471,129 @@ public void partition(int[] list, int left, int right) {
   return left;
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<h3 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h3><p>归并排序的思路是，将数组分成两部分，分别将左边和右边变有序，然后使用将两个有序数组合并为一个有序数组的方法</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">public void mergeSort(int[] list, int left, int right, int temp) {
+  if (left &lt; right) {
+    int mid = (left + right) / 2;
+    mergeSort(list, left, mid, temp);//左有序
+    mergeSort(list, mid + 1, right, temp);//右有序
+    merge(list, left, mid, right, temp);
+  }
+}
 
+public void merger(int[] list, int left, int mid, int right, int[] temp) {
+  int i = left;
+  int j = mid + 1;
+  int count = 0;
+  while (i &lt;= mid &amp;&amp; j &lt;= right) {
+    if (list[i] &gt; list[j]) {
+      temp[count++] = list[j++];
+    } else {
+      temp[count++] = list[i++];
+    }
+  }
+  while (i &lt;= mid) {
+    temp[count++] = list[i++];
+  }
+  while (j &lt;= right) {
+    temp[count++] = list[j++];
+  }
+  //将排好的顺序放入原数组中
+  count = 0;
+  int leftI = left;
+  while (leftI &lt;= right) {
+    list[left++] = temp[count++];
+  }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>NB：快排，堆排，归并</p>
-<p>其他：希尔，桶排，基数</p>
+<h3 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h3><p>理解堆排序需要知道二叉树的一些相关知识，这里不讨论。堆排序分为大根堆和小根堆。顾名思义，大根堆是父节点元素一定比子节点大，小根堆则相反。堆排序我们首先需要根据数组构建出堆，然后进行调堆、出数的操作。二叉树有两种存储方式，一种是数组（本写法默认数组存放），一种是链式存储。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">public void sift(int[] list, int low, int high) {
+  int i = low;//表示根节点
+  int j = i * 2 + 1;//表示左孩子
+  int temp = list[i];
+  while (j &lt;= high) {
+    if (j + 1 &lt;= high &amp;&amp; list[j + 1] &gt; list[j]) {//右孩子大
+      j = j + 1;
+    }
+    if (list[j] &gt; temp) {//孩子节点比父节点大，交换节点，更新标识位
+      list[i] = list[j];
+      i = j;
+      j = i * 2 + 1;
+    } else {
+      	list[i] = temp;//可省略
+      	break;
+    }
+  }
+  list[i] = temp;
+}
+
+public void heapSort(int[] list) {
+  //从最后一个父节点向上建堆
+  for (int i = (list.length - 2) / 2; i &gt; -1; i--) {//最后一个元素是len-1，子节点-&gt;父节点公式：“(i - 1) / 2”
+    sift(list, i, list.length - 1);
+  }
+  //出数-不额外申请空间
+  for (int i = list.length - 1; i &gt; -1; i--) {
+    int temp = list[0];
+    list[0] = list[i];
+    list[i] = temp;
+    sift(list, 0, i - 1);
+  }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="其他类型排序"><a href="#其他类型排序" class="headerlink" title="其他类型排序"></a>其他类型排序</h2><h3 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h3><p>希尔排序是分组插入排序算法，通过选取一个gap，将每组相邻距离为gap的元素进行直接插入排序，每进行完一次排序，gap的变为原来的一半，直到gap为1为止。希尔排序每趟不使元素有序，而是使整体数据越接近有序</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">public void insertShellSort(int[] list, int gap) {
+  for (int i = gap; i &lt; list.length; i++) {
+    int j = i - gap;
+    int cur = list[i];
+    while (j &gt;= 0 &amp;&amp; list[j] &gt; cur) {
+      list[j + gap] = list[j];
+      j -= gap;
+    }
+    list[j + gap] = temp;
+  }
+}
+
+public void shellSort(int[] list) {
+  int gap = list.length / 2;
+  while (gap &gt; = 1) {
+    insertShellSort(list, gap);
+    gap /= 2;
+  }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="桶排序"><a href="#桶排序" class="headerlink" title="桶排序"></a>桶排序</h3><p>首先将列表元素粉崽不同的桶中，在将桶中的元素排序。比较关键的是桶的大小和桶的个数。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">public void binSort(int[] list, int bucketSize) {
+  //首先计算一下桶的个数
+  int maxNum = list[0], minNum = list[0];
+  for (int i = 0; i &lt; list.length; i++) {
+    maxNum = Math.max(list[i],maxNum);
+    minNum = Math.min(list[i],minNum);
+  }
+  List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;();//使用list模拟桶
+  //创建桶
+  int bucketNum = (maxNum - minNum) / bucketSize;
+  for (int i = 0;i &lt; bucketNum; i++) {
+    res.add(new ArrayList&lt;&gt;());
+  }
+  //将数依次放入桶中
+  for (int i = 0;i &lt; list.length; i++) {
+    res.get((list[i] - minNum) / bucketSize)).add(list[i]);
+  }
+  //对每个桶进行排序
+  for (int i = 0; i &lt; bucketNum; i++) {
+    Collections.sort(res.get(i));
+  }
+  //将桶中的数据放入数组
+  int index = 0;
+  for(int i = 0; i &lt; bucketNum; i++) {
+    for (int j = 0; j &lt; res.get(i).size(); j++) {
+      list[index++] = res.get(i).get(j);
+    }
+  }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="计数排序"><a href="#计数排序" class="headerlink" title="计数排序"></a>计数排序</h3><h3 id="基数排序"><a href="#基数排序" class="headerlink" title="基数排序"></a>基数排序</h3><p>其他：希尔，桶排，基数，计数</p>
 
                 
             </div>
