@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="keywords" content="常见排序算法, pfcai-blog">
     <meta name="description" content="今天把常见的排序算法进行总结，包括时空复杂度和一些特殊情况下的优劣。
-low三样冒泡排序冒泡排序是从数组元素第一个开始，两两比较，循环n-1次，每一次循环都会确定一个值的位置。
+low三人冒泡排序冒泡排序是从数组元素第一个开始，两两比较，循环n-1次，每一次循环都会确定一个值的位置。
 public void bubbleSort(intp[] l">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -377,7 +377,7 @@ public void bubbleSort(intp[] l">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.4k
+                    2.1k
                 </div>
                 
 
@@ -403,20 +403,26 @@ public void bubbleSort(intp[] l">
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>今天把常见的排序算法进行总结，包括时空复杂度和一些特殊情况下的优劣。</p>
-<h2 id="low三样"><a href="#low三样" class="headerlink" title="low三样"></a>low三样</h2><h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><p>冒泡排序是从数组元素第一个开始，两两比较，循环n-1次，每一次循环都会确定一个值的位置。</p>
+<h2 id="low三人"><a href="#low三人" class="headerlink" title="low三人"></a>low三人</h2><h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><p>冒泡排序是从数组元素第一个开始，两两比较，循环n-1次，每一次循环都会确定一个值的位置。</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java">public void bubbleSort(intp[] list) {
   int len = list.length;
   for (int i = 0; i &lt; len - 1; i++) {
+    boolean flag = false;
     for (int j = 0; j &lt; len - i; j++) {
       if (list[j] &gt; list[j + 1]) {
         int temp = list[j + 1];
         list[j + 1] = list[j];
         list[j] = temp;
+        flag = true;
       }
     }
+    if (flag == false) {
+     return; 
+    }
   }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<p>冒泡排序的时间复杂度是O(n2),最坏的情况是数组有序，所以可以进行优化，添加标识为判断是否存在交换，不存在交换则结束循环。</p>
 <h3 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h3><p>每次选择一个数组中最小的数放入数组，所以外层循环n次。</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java">public void selectSort(int[] list) {
   for (int i = 0; i &lt; list.length; i++){
@@ -432,6 +438,7 @@ public void bubbleSort(intp[] l">
   }
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<p>时间复杂度是O(n2)，</p>
 <h3 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h3><p>假设插入排序就是抽牌理牌的过程，手中的牌是有序的，每次抽一张牌将它插到手中并保持有序。</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java">public void insertSort(int[] list) {
   for (int i = 1;i &lt; list.length; i++) {
@@ -446,7 +453,8 @@ public void bubbleSort(intp[] l">
   }
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="NB三人"><a href="#NB三人" class="headerlink" title="NB三人"></a>NB三人</h2><h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><p>快速排序的中心思想是选择一个标识位，将小于标识为的放在左边，大于标志数的放在右边，通过分治思想将问题变小，在左、右边重新各选一个标志，进行归位。接着递归到只有一个元素为止。</p>
+<p>插入排序的时间复杂度也是O(n2)，因为每次需要移动牌，从1 + 2 + … + n = n(n + 1)。</p>
+<h2 id="牛三人"><a href="#牛三人" class="headerlink" title="牛三人"></a>牛三人</h2><h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><p>快速排序的中心思想是取一个元素p（第一个元素），使元素p归位，列表被p分成两部分，左边都比p小，右边比p大；递归完成排序。</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java">public void fastSort(int[] list, int left, int right) {
   if (left &lt; right) {
     int mid = partition(list, left, right);
@@ -471,6 +479,7 @@ public void partition(int[] list, int left, int right) {
   return left;
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<p>快速排序的时间复杂度是O(nlogn)，快速排序存在最坏情况，也就是数组为倒序</p>
 <h3 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h3><p>归并排序的思路是，将数组分成两部分，分别将左边和右边变有序，然后使用将两个有序数组合并为一个有序数组的方法</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java">public void mergeSort(int[] list, int left, int right, int temp) {
   if (left &lt; right) {
@@ -506,6 +515,7 @@ public void merger(int[] list, int left, int mid, int right, int[] temp) {
   }
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<p>归并排序的时间复杂度：O(nlogn)，归并有logn层，每一层循环n次。</p>
 <h3 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h3><p>理解堆排序需要知道二叉树的一些相关知识，这里不讨论。堆排序分为大根堆和小根堆。顾名思义，大根堆是父节点元素一定比子节点大，小根堆则相反。堆排序我们首先需要根据数组构建出堆，然后进行调堆、出数的操作。二叉树有两种存储方式，一种是数组（本写法默认数组存放），一种是链式存储。</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java">public void sift(int[] list, int low, int high) {
   int i = low;//表示根节点
@@ -541,6 +551,7 @@ public void heapSort(int[] list) {
   }
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<p>堆排序的时间复杂度：sift函数是O(logn)，建堆为O(n),出数为O(n)，所以是2 * O(n*logn) = O(nlogn)。但快速排序比堆排序快一点。</p>
 <h2 id="其他类型排序"><a href="#其他类型排序" class="headerlink" title="其他类型排序"></a>其他类型排序</h2><h3 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h3><p>希尔排序是分组插入排序算法，通过选取一个gap，将每组相邻距离为gap的元素进行直接插入排序，每进行完一次排序，gap的变为原来的一半，直到gap为1为止。希尔排序每趟不使元素有序，而是使整体数据越接近有序</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java">public void insertShellSort(int[] list, int gap) {
   for (int i = gap; i &lt; list.length; i++) {
@@ -562,6 +573,7 @@ public void shellSort(int[] list) {
   }
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<p>希尔排序的时间复杂度与选取的gap序列有关，不同的gap时间复杂度不同，可以在wiki上看到现存gap的时间复杂度。</p>
 <h3 id="桶排序"><a href="#桶排序" class="headerlink" title="桶排序"></a>桶排序</h3><p>首先将列表元素粉崽不同的桶中，在将桶中的元素排序。比较关键的是桶的大小和桶的个数。</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java">public void binSort(int[] list, int bucketSize) {
   //首先计算一下桶的个数
@@ -593,7 +605,60 @@ public void shellSort(int[] list) {
   }
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="计数排序"><a href="#计数排序" class="headerlink" title="计数排序"></a>计数排序</h3><h3 id="基数排序"><a href="#基数排序" class="headerlink" title="基数排序"></a>基数排序</h3><p>其他：希尔，桶排，基数，计数</p>
+<p>桶排序的时间复杂度和数据分布有关系，对不同的数据分布采取不同的分桶策略。（k表示一个桶平均的长度）平均情况下时间复杂度为O(n + k)，最坏情况为：O(n2k)。空间复杂度是O(nk)。</p>
+<h3 id="计数排序"><a href="#计数排序" class="headerlink" title="计数排序"></a>计数排序</h3><p>计数排序非常好理解，创建一个计数数组，将元素依次放入计数数组中，每放入一个数，计数数组值+1，最后遍历计数数组打印元素。因为数组本身是有序的，所以可以进行排序。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">public void countSort(int[] list) {
+  //找出最大的值目的是创建数组
+  int max = list[0];
+  for (int i : list) {
+    max = Math.max(i,max);
+  }
+  int[] res = new int[max];
+  for (int i : list) {
+    res[i]++;
+  }
+  for (int i = 0; i &lt; res.length; i++) {
+    for (int j = 0; j &lt; res[i]; j++) {
+      System.out.println(i);
+    }
+  }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>计数排序时间复杂度是O(n)，但是有限制，即n不能太大。</p>
+<h3 id="基数排序"><a href="#基数排序" class="headerlink" title="基数排序"></a>基数排序</h3><p>基数排序的原理是先从个位排序，然后百位、千位…直到位数最大的长度为止。具体实现：创建10个桶表示每位数上的值0~9，依次取个位上的数放入桶中，然后将桶内元素排序并放回原数组，接着取十位、百位等等。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">public void redixSort(int[] list) {
+  int maxNum = list[0];
+  for (int i : list) {
+    maxNum = Math.max(maxNum,i);
+  }
+  int count = 0;//循环计数
+  while (Math.pow(10, count) &lt;= maxNum) {
+    int bucketNum 10;
+    List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;();
+    while (bucketNum &gt; 0) {
+      res.add(new ArrayList&lt;&gt;());
+      bucketNum--;
+    }
+    //取每一位的值并放入桶中
+    int digit = 0;
+    for (int i : list) {
+      digit = (int)(i / Math.pow(10,count)% 10 );
+      res.get(digit).add(i);
+    }
+    //将桶中的数组放入数组
+    int index = 0;
+    for (int i = 0;i &lt; bucketNum; i++) {
+      for (int j = 0; j&lt; res.get(i).size(); j++) {
+        list[index++] = res.get(i).get(j);
+      }
+    }
+    count++;//取下一位
+  }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>基数的时间复杂度是：O(nk)，k是最大数的数字位数。空间复杂度为O(k + n)。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>排序算法到这里基本结束，时空复杂度和每个排序的最优最列情况要了解清楚，剩下的就是能通过伪代码记忆下来。每天做几道算法题巩固，那在笔试中就应该没有问题了。</p>
+<p>Peace &amp; Love。</p>
 
                 
             </div>
