@@ -378,7 +378,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    6.1k
+                    6.3k
                 </div>
                 
 
@@ -735,101 +735,52 @@ public boolean isPalindrome(String s, int start, int end) {
 </ul>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java">List&lt;String&gt; res = new ArrayList&lt;&gt;();
 public List&lt;String&gt; restoreIpAddresses(String s) {
-    combine(s, 0, 0);
-    return res;
+        combine(s, 0, 0);
+        return res;
 }
 
 public void combine(String s, int startIndex, int pointNum) {
-    if (pointNum == 3) {
-        //判断第四段是否合法
-        if (isValid(s, startIndex, s.length() - 1)) {
-            res.add(s);
+        if (pointNum == 3) {
+            //判断第四段是否合法
+            if (isValid(s, startIndex, s.length() - 1)) {
+                res.add(s);
+            }
+            return;
         }
-        return;    List&lt;String&gt; res = new ArrayList&lt;&gt;();
-public List&lt;String&gt; restoreIpAddresses(String s) {
-    combine(s, 0, 0);
-    return res;
-}
-
-public void combine(String s, int startIndex, int pointNum) {
-    if (pointNum == 3) {
-        //判断第四段是否合法
-        if (isValid(s, startIndex, s.length() - 1)) {
-            res.add(s);
+        for (int i = startIndex; i &lt; s.length(); i++) {
+            if (isValid(s, startIndex, i)) {
+                s = s.substring(startIndex, i + 1) + "." + s.substring(i + 1);//子串合法插入符号.
+                pointNum++;
+                combine(s, i + 2, pointNum);//插入符号后，下一个子串的起始位置是i+2
+                pointNum--;//回溯，取消插入符号
+                s = s.substring(startIndex, i + 1) + s.substring(i + 2);//回溯，取消插入符号
+            } else {
+                break;
+            }
         }
-        return;
-    }
-    for (int i = startIndex; i &lt; s.length(); i++) {
-        if (isValid(s, startIndex, i)) {
-          	//子串合法插入符号.
-            s = s.substring(0, i + 1) + "." + s.substring(i + 1);
-            pointNum++;
-            combine(s, i + 2, pointNum);//插入符号后，下一个子串的起始位置是i+2
-            pointNum--;//回溯，取消插入符号
-          	//回溯，取消插入符号
-            s = s.substring(0, i + 1) + s.substring(i + 2);
-        } else {
-            break;
-        }
-    }
 }
 
 public boolean isValid(String s, int start, int end) {
-    if (start &gt; end) {
-        return false;
-    }
-    //段位以0为开头的数字不合法
-    if (s.charAt(start) == '0' &amp;&amp; start != end) {
-        return false;
-    }
-    //判断值是否大于255
-    String temp = s.substring(start, end + 1);
-    if (Integer.valueOf(temp) &gt; 255) {
-        return false;
-    }
-    //判断是否出现数字以外其他字符
-    for (int i = start; i &lt;= end; i++) {
-        if(s.charAt(i) &gt; '9' || s.charAt(i) &lt; '0') {
+        if (start &gt; end) {
             return false;
         }
-    }
-    return true;
-}
-    }
-    for (int i = startIndex; i &lt; s.length(); i++) {
-        if (isValid(s, startIndex, i)) {
-            s = s.substring(startIndex, i + 1) + "." + s.substring(i + 1);//子串合法插入符号.
-            pointNum++;
-            combine(s, i + 2, pointNum);//插入符号后，下一个子串的起始位置是i+2
-            pointNum--;//回溯，取消插入符号
-            s = s.substring(startIndex, i + 1) + s.substring(i + 2);//回溯，取消插入符号
-        } else {
-            break;
-        }
-    }
-}
-
-public boolean isValid(String s, int start, int end) {
-    if (start &gt; end) {
-        return false;
-    }
-    //段位以0为开头的数字不合法
-    if (s.charAt(start) == '0' &amp;&amp; start != end) {
-        return false;
-    }
-    //判断值是否大于255
-    String temp = s.substring(start, end + 1);
-    if (Integer.valueOf(temp) &gt; 255) {
-        return false;
-    }
-    //判断是否出现数字以外其他字符
-    for (int i = start; i &lt;= end; i++) {
-        if(s.charAt(i) &gt; '9' || s.charAt(i) &lt; '0') {
+        //段位以0为开头的数字不合法
+        if (s.charAt(start) == '0' &amp;&amp; start != end) {
             return false;
         }
-    }
-    return true;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        //判断值是否大于255
+        String temp = s.substring(start, end + 1);
+        if (Integer.valueOf(temp) &gt; 255) {
+            return false;
+        }
+        //判断是否出现数字以外其他字符
+        for (int i = start; i &lt;= end; i++) {
+            if(s.charAt(i) &gt; '9' || s.charAt(i) &lt; '0') {
+                return false;
+            }
+        }
+        return true;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="子集问题"><a href="#子集问题" class="headerlink" title="子集问题"></a>子集问题</h2><h3 id="子集1"><a href="#子集1" class="headerlink" title="子集1"></a>子集1</h3><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/subsets/">力扣题目链接(opens new window)</a></p>
 <p>给定一组不含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。</p>
@@ -1000,6 +951,80 @@ public void backTracking(int[] nums, boolean[] visited) {
             }
         }
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="N皇后问题"><a href="#N皇后问题" class="headerlink" title="N皇后问题"></a>N皇后问题</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/n-queens/">力扣题目链接(opens new window)</a></p>
+<p>n 皇后问题 研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并且使皇后彼此之间不能相互攻击。</p>
+<p>给你一个整数 n ，返回所有不同的 n 皇后问题 的解决方案。</p>
+<p>每一种解法包含一个不同的 n 皇后问题 的棋子放置方案，该方案中 ‘Q’ 和 ‘.’ 分别代表了皇后和空位。</p>
+<ul>
+<li>输入：n = 4</li>
+<li>输出：[[“.Q..”,”…Q”,”Q…”,”..Q.”],[“..Q.”,”Q…”,”…Q”,”.Q..”]]</li>
+<li>解释：如上图所示，4 皇后问题存在两个不同的解法。</li>
+</ul>
+<h3 id="思路-11"><a href="#思路-11" class="headerlink" title="思路"></a>思路</h3><p>约束条件：</p>
+<ol>
+<li>不能同行</li>
+<li>不能同列</li>
+<li>不能同斜线</li>
+</ol>
+<p>二维矩阵中矩阵的高就是这棵树的高度，矩阵的宽就是树形结构中每一个节点的宽度。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+#include&lt;vector&gt;
+#include&lt;string.h&gt;
+using namespace std;
+
+class Solution {
+public:
+    vector&lt;vector&lt;string&gt;&gt; result;
+    vector&lt;vector&lt;string&gt;&gt; solveNQueens(int n) {
+        result.clear();
+        std::vector&lt;std::string&gt; chessboard(n, std::string(n, '.'));
+        backTracking(n, 0, chessboard);
+        return result;
+    }
+
+    bool isValid(int row, int col, vector&lt;string&gt; &amp;chessboard, int n) {
+    //检查列
+    for (int i = 0; i &lt; row; i++) {
+        if (chessboard[i][col] == 'Q') {
+            return false;
+        }
+    }
+
+    //检查45度
+    for (int i = row - 1, j = col - 1;j &gt;= 0 &amp;&amp; i &gt;= 0; j--, i--) {
+        if (chessboard[i][j] == 'Q') {
+            return false;
+        }
+    }
+
+    //检查135斜线
+    for (int i = row - 1, j = col + 1; i &gt;= 0 &amp;&amp; j &lt; n; i--, j++) {
+        if (chessboard[i][j] == 'Q') {
+            return false;
+        }
+    }
+    return true;
+}
+
+    void backTracking(int n, int row, vector&lt;string&gt; &amp;chessboard) {
+        if (row == n) {
+            result.push_back(chessboard);
+            return;
+        }
+
+        for (int col = 0; col &lt; n; col++) {
+            if (isValid(row, col, chessboard, n)) {
+                chessboard[row][col] = 'Q';
+                backTracking(n, row + 1, chessboard);
+                chessboard[row][col] = '.';
+            }
+        }
+    }
+};
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 
                 
             </div>

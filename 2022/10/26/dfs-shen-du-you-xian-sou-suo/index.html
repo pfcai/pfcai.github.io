@@ -5,10 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="DFS和BFS, pfcai-blog">
-    <meta name="description" content="本片来讲一下DFS深度优先搜索和BFS广度优先搜索两种搜索算法。
-DFS和BFS的区别
-DFS是可一个方向去搜，不到黄河不回头，直到遇到绝境了，搜不下去了，在换方向（换方向的过程就涉及到了回溯）。
-BFS是先把本节点所连接的所有节点遍历一遍">
+    <meta name="description" content="下周要参加三星南研所的面试，主要考察的是DFS和BFS，这几天做了一些POJ的题，感觉非常吃力，因为没办法进行调试，能通过仅有的几个用例，提交代码之后还是会报错。然后在网上搜了搜别人的标准答案有的照搬也会出现问题，今天把做过的题进行一个总结">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -378,7 +375,7 @@ BFS是先把本节点所连接的所有节点遍历一遍">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.2k
+                    4.1k
                 </div>
                 
 
@@ -403,7 +400,7 @@ BFS是先把本节点所连接的所有节点遍历一遍">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>本片来讲一下DFS深度优先搜索和BFS广度优先搜索两种搜索算法。</p>
+                <p>下周要参加三星南研所的面试，主要考察的是DFS和BFS，这几天做了一些POJ的题，感觉非常吃力，因为没办法进行调试，能通过仅有的几个用例，提交代码之后还是会报错。然后在网上搜了搜别人的标准答案有的照搬也会出现问题，今天把做过的题进行一个总结，先把框架理顺。下面先讲DFS和BFS概念，接着把例题和我写的代码贴出来。</p>
 <h2 id="DFS和BFS的区别"><a href="#DFS和BFS的区别" class="headerlink" title="DFS和BFS的区别"></a>DFS和BFS的区别</h2><ul>
 <li>DFS是可一个方向去搜，不到黄河不回头，直到遇到绝境了，搜不下去了，在换方向（换方向的过程就涉及到了回溯）。</li>
 <li>BFS是先把本节点所连接的所有节点遍历一遍，走到下一个节点的时候，再把连接节点的所有节点遍历一遍，搜索方向更像是广度，四面八方的搜索过程。</li>
@@ -467,10 +464,21 @@ public void dfs(int[][] graph, int current) {
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h2><p>广搜（bfs）是一圈一圈的搜索过程，在二叉树中的表现就是层序遍历。</p>
-<h3 id="广搜的使用场景"><a href="#广搜的使用场景" class="headerlink" title="广搜的使用场景"></a>广搜的使用场景</h3><p>广搜的搜索方式就适合于解决两个点之间的最短路径问题。因为广搜是从起点出发，以起始点为中心一圈一圈进行搜索，一旦遇到终点，记录之前走过的节点就是一条最短路。</p>
-<h3 id="代码框架"><a href="#代码框架" class="headerlink" title="代码框架"></a>代码框架</h3><p>广搜其实仅仅需要一个容器，能保存要遍历过的元素就可以，那么用队列，还是用栈，甚至用数组，都是可以的。</p>
-<p>用队列的话，就是保证每一圈都是一个方向去转，例如统一顺时针或者逆时针。因为队列是先进先出，加入元素和弹出元素的顺序是没有改变的。</p>
+<h3 id="广搜的使用场景"><a href="#广搜的使用场景" class="headerlink" title="广搜的使用场景"></a>广搜的使用场景</h3><p>问最短、最少之类的问题，一般要想到BFS，BFS搜索是逐层搜索，达到本层时所花费的value值是一样的，由于BFS借助队列实现，而队列有先进先出的特性，所以当找到结果时，是从上一层继承下来的，一定是当前问题的最少花费。求最短路问题时，优先用bfs，因为dfs需要遍历所有情况（此处思考一下为什么）才能找到最短路（spfa算法正是借助bfs来实现的）</p>
+<h3 id="代码框架"><a href="#代码框架" class="headerlink" title="代码框架"></a>代码框架</h3><p>用队列的话，就是保证每一圈都是一个方向去转，例如统一顺时针或者逆时针。因为队列是先进先出，加入元素和弹出元素的顺序是没有改变的。</p>
 <p>如果用栈的话，可能就是第一圈顺时针遍历，第二圈逆时针遍历，第三圈有顺时针遍历。因为栈是先进后出，加入元素和弹出元素的顺序改变了。<br>这里给出使用队列去实现的广度优先搜索。实现的问题就是在四方格中，给定一个起点和终点，找到起点到终点的最短路径。</p>
+<h3 id="模版"><a href="#模版" class="headerlink" title="模版"></a>模版</h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int vis[x];//标记数组，用来标记该节点是否曾经入队，避免节点重复入队导致死循环
+queue&lt;int&gt;q;//或可以用数组辅助实现队列，int q[100],int pre=0,rear=0;队头和队尾
+while(!q.empty()){
+	int now=q.front();//取队首元素
+	q.pop();//弹出队首元素
+	步骤1.找出当前节点走一步可以接触到的地方即邻接点
+	步骤2.在vis数组中查询步骤1找到的节点
+  步骤3.将未插入vis数组的节点入队
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
 <pre class="line-numbers language-java" data-language="java"><code class="language-java">int[][] dir ={{0, 1}, {1, 0},{-1, 0},{ 0, -1}};
 
 public int numIslands(char[][] grid) {
@@ -479,7 +487,7 @@ public int numIslands(char[][] grid) {
         for (int i = 0; i &lt; grid.length; i++) {
             for (int j = 0; j &lt; grid[0].length; j++) {
                 if (grid[i][j] == '1') {
-                    dfs(grid, i, j, visited);
+                    bfs(grid, i, j, visited);
                     count++;
                 }
             }
@@ -487,7 +495,7 @@ public int numIslands(char[][] grid) {
         return count;
     }
 
-public void dfs(char[][] grid, int x, int y, boolean[][] visited) {
+public void bfs(char[][] grid, int x, int y, boolean[][] visited) {
         Queue&lt;int[]&gt; que = new LinkedList&lt;&gt;();
         que.add(new int[]{x,y});
         visited[x][y] = true;
@@ -510,7 +518,447 @@ public void dfs(char[][] grid, int x, int y, boolean[][] visited) {
 
 
 
+<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><h3 id="棋盘问题"><a href="#棋盘问题" class="headerlink" title="棋盘问题"></a>棋盘问题</h3><p><a target="_blank" rel="noopener" href="https://vjudge.net/problem/POJ-1321/origin">POJ - 1321</a></p>
+<p>在一个给定形状的棋盘（形状可能是不规则的）上面摆放棋子，棋子没有区别。要求摆放时任意的两个棋子不能放在棋盘中的同一行或者同一列，请编程求解对于给定形状和大小的棋盘，摆放k个棋子的所有可行的摆放方案C。</p>
+<p><strong>Input</strong></p>
+<p>输入含有多组测试数据。<br>每组数据的第一行是两个正整数，n k，用一个空格隔开，表示了将在一个n*n的矩阵内描述棋盘，以及摆放棋子的数目。 n &lt;= 8 , k &lt;= n<br>当为-1 -1时表示输入结束。<br>随后的n行描述了棋盘的形状：每行有n个字符，其中 # 表示棋盘区域， . 表示空白区域（数据保证不出现多余的空白行或者空白列）。</p>
+<p><strong>Output</strong></p>
+<p>对于每一组数据，给出一行输出，输出摆放的方案数目C （数据保证C&lt;2^31）。</p>
+<p><strong>思路</strong></p>
+<p>此题是N皇后的变形题，由n个皇后变成k个皇后放置在n*n的棋盘上，并且约束条件少了一个斜线判断，只需要进行行列判断即可。那在放置棋子的时候我们就可以选择放还是不放，然后进行DFS把每一种情况都求出来类加，最后直接返回结果即可。循环是按行循环，然后判断没列是否进行插入操作，结束标准就是棋子放置完毕或者row超出了界限。需要一个判别函数、一个方法计数、一个迷宫数组、一个标记数组</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+using namespace std;
 
+char maze[10][10];
+int vis[10][10];
+int countNum;
+
+bool isValid(int row, int col, int n) {
+  //因为是按行进行循环，一行只放一个或不放所以不需要判断，只需要判断列
+  for (int i = row - 1; i &gt;= 0; i--) {
+    if (vis[i][col] == 1)
+      return false;
+  }
+  return true;
+}
+
+void dfs(int n, int k, int row) {
+  //无棋子结束
+  if (k == 0) {
+    countNum++;
+    return;
+  }
+  //越界结束
+  if (row &gt;= n) return;
+  for (int col = 0; col &lt; n; col++) {
+    if (isValid(row, col, n) &amp;&amp; maze[row][col] == '#') {
+      //放棋子
+      vis[row][col] = 1;
+      dfs(n, k - 1, row + 1);
+      vis[row][col] = 0;//回溯!!!
+    }
+  }
+  //合适位置不放，继续向下搜索
+  dfs(n, k, row + 1);
+}
+
+//输入
+int main() {
+  int n, k;
+  while(cin&gt;&gt;n&gt;&gt;k, n != -1 &amp;&amp; k != -1) {
+    for (int i = 0;i &lt; n; i++) {
+      for (int j = 0;j &lt; n; j++) {
+        cin&gt;&gt;maze[i][j];
+      }
+    }
+    countNum = 0;
+    dfs(n, k, 0);
+    cout&lt;&lt;countNum&lt;&lt;endl;
+    memset(vis, 0, sizeof(vis));
+    memset(maze, 0, sizeof(maze));
+  }
+  return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="三维牢笼"><a href="#三维牢笼" class="headerlink" title="三维牢笼"></a>三维牢笼</h3><p>POJ - 2251s</p>
+<p>题意：一个三维牢笼，求从S开始寻到E的最短路径，该题输入数据时不用读取空格。</p>
+<p><strong>思路</strong></p>
+<p>迷宫问题变形，难点在于理解题目意思，对于三维牢笼的建图，我们可以采用三维数组，三维数组a[z][x][y]可以看成z个二维数组的集合（z即可以看成z层牢笼），对于二维迷宫问题，是处于平面上的，移动时只有四个方向，上下左右，而三维迷宫问题则可以移动6个方向，也就是在二维迷宫问题上面多了一个Z坐标轴。对于最短路径使用BFS算法，所以需要一个队列。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+using namespace std;
+
+char maze[41][41][41];
+int vis[41][41][41];
+int dir[6][3] = {{-1, 0, 0}, {1, 0, 0}, {0, -1, 0}, {0, 1, 0}, {0, 0, -1}, {0, 0, 1}};
+int countNum, flag;
+struct node {
+  int x, y, z;
+  int step;
+};
+struct queue {
+  int front;
+  int rear;
+  node q[100000];
+};
+int l, r, c;
+
+void bfs (int sx, int sy, int sz) {
+  //标记访问
+  vis[sz][sx][sy] = 1;
+  struct queue fq;
+  struct node now;
+  //入队
+  now.x = sx;
+  now.y = sy;
+  now.z = sz;
+  now.step = 0;
+  fq.front = 0, fq.rear = 1;
+  fq.q[0] = now;
+  while (fq.front != fq.rear) {
+    //出队
+    now = fq.q[fq.front++];
+    //判断
+    if (maze[now.z][now.x][now.y] == 'E') {
+        flag = 1;
+        countNum = now.step;
+        return;
+    }
+    for (int i = 0; i &lt; 6; i++) {
+        node temp = now;
+        int nx = now.x + dir[i][1];
+        int ny = now.y + dir[i][2];
+        int nz = now.z + dir[i][0];
+        //判断是否越界
+        if (nz &gt;=0 &amp;&amp; nz &lt; l &amp;&amp; nx &gt;= 0 &amp;&amp; nx &lt; r &amp;&amp; ny &gt;= 0 &amp;&amp; ny &lt; c &amp;&amp;
+            (maze[nz][nx][ny] == 'E') || maze[nz][nx][ny] == '.') {
+                now.x = nx, now.y = ny, now.z = nz, now.step = now.step + 1;
+                fq.q[fq.rear++] = now;
+                now = temp;
+                vis[nz][nx][ny] = 1;
+        }
+    }
+  }
+}
+
+int main() {
+    while (cin&gt;&gt;l&gt;&gt;r&gt;&gt;c, l + r + c != 0) {
+        int sx, sy, sz;
+        for (int i = 0; i &lt; l; i++) {
+            for (int j = 0; j &lt; r; j++) {
+                for (int k = 0; k &lt; c; k++) {
+                    cin&gt;&gt;maze[i][j][k];
+                    if (maze[i][j][k] == 'S') {
+                        sz = i;
+                        sx = j;
+                        sy = k;
+                    }
+                }
+            }
+        }
+        flag = 0, countNum = 0;
+        memset(vis, 0, sizeof(vis));
+        memset(maze, 0, sizeof(maze));
+        bfs(sx, sy, sz);
+        if (flag) {
+            cout &lt;&lt; "Escaped in " &lt;&lt; countNum &lt;&lt;" minute(s)."&lt;&lt;endl ;
+        } else {
+            cout &lt;&lt; "Trapped!" &lt;&lt; endl;
+        }
+    }
+    return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>上面的代码提交之后会出现Runtime Error，自己试了几个例子都可以通过，所以搞不清哪里又问题，如果有大神知道可以联系我一下。</p>
+<h3 id="Catch-That-Cow"><a href="#Catch-That-Cow" class="headerlink" title="Catch That Cow"></a>Catch That Cow</h3><p> <a target="_blank" rel="noopener" href="https://vjudge.net/problem/POJ-3278/origin">POJ - 3278 </a></p>
+<p>题目大意：输入两个数n,m，求n到m的最短距离（n只有三种走法，前后移动一个位置或移动到2*n的位置）</p>
+<p><strong>思路</strong></p>
+<p>无脑搜索即可，只需要注意1.不能移动到小于0的位置；2.必须小于等于abs（n-m），此处的n是初始n，因为abs（n-m）就是一格一格移动到终点，没有花里胡哨的步骤；3.不可移动至（max(n,m)+1*2的位置。变相求最短路径依然是用BFS。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+using namespace std;
+
+int abs(int x, int y) {
+    if (x &lt; y) return y - x;
+    return x - y;
+};
+
+int max(int x, int y) {
+    if (x &gt; y) return x;
+    return y;
+};
+
+struct node {
+    int step, pos;
+};
+
+int countNum, maxn;
+void bfs(int n, int k) {
+    //如果到位置则结束
+    node *q = new node[400000 + 10]();//数组代替队列
+    int *vis = new int[400000 + 10]();
+    q[0].step = 0, q[0].pos = n;
+    int front = 0, rear = 1;
+    vis[n] = 1;
+    while (front != rear) {
+        //出队
+        node temp = q[front++];
+        //判断是否是终点
+        if (temp.pos == k) {
+            cout&lt;&lt;temp.step&lt;&lt;endl;
+            return;
+        }
+        //进行3步走
+        for (int i = 0; i &lt; 3; i++) {
+            node now = temp;
+            if (i == 0) now.pos += 1;
+            else if (i == 1) now.pos -= 1;
+            else now.pos *= 2;
+            //走完记得步数加一
+            now.step++;
+            //判断是否出出界
+            if (now.pos &gt;= 0 &amp;&amp; now.step &lt;= abs(n, k) &amp;&amp; now.pos &lt;= max(n, k) * 2 &amp;&amp; !vis[now.pos]) {
+                //符合条件
+                vis[now.pos] = 1;
+                //入队
+                q[rear++] = now;
+            }
+        }
+    }
+}
+int main (){
+    int n, k;
+    cin&gt;&gt;n&gt;&gt;k;
+    bfs(n, k);
+    return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>难点在于边界的判断。</p>
+<h3 id="Curling-2-0"><a href="#Curling-2-0" class="headerlink" title="Curling 2.0"></a>Curling 2.0</h3><p><a target="_blank" rel="noopener" href="http://poj.org/problem?id=3009">POJ-3009 </a></p>
+<p>题目大意：使用一个石头从起点扔到终点，找最少扔几次能到达终点。<br>扔石头有限制：</p>
+<ol>
+<li>只能朝上下左右没有石头紧靠的方向丢</li>
+<li>丢出去之后遇到石头停下，且遇到的石头会被消灭</li>
+<li>扔石头出界算失败</li>
+<li>次数要求在10次之内</li>
+</ol>
+<p>找最短距离依然是使用BFS，这里限制因素比较多，要仔细考虑一下。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+using namespace std;
+
+int maze[30][30];
+int vis[30][30];
+int dire[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+int w, h, sx, sy, ex, ey;
+int flag, res;
+
+int min(int x, int y) {
+    if (x &lt; y) return x;
+    return y;
+}
+
+void dfs(int sx, int sy, int countNum, int des) {
+    if (sx == ex &amp;&amp; sy == ey) {
+        flag = 1;
+        res = min(res, countNum);
+        return;
+    }
+
+    //如果超过10步则结束游戏
+    if (countNum &gt;= 10) return;
+    for(int i = 0;i &lt; 4; i++) {
+        int nx = sx + dire[i][0];
+        int ny = sy + dire[i][1];
+        if (nx &lt; 0 || ny &lt; 0 || nx &gt;= h || ny &gt;= w) continue;
+        if (maze[nx][ny] == 1) continue;
+
+        int tag = 0;//越界标识符
+        while (maze[nx][ny] == 0 || maze[nx][ny] == 2) {
+            nx = nx + dire[i][0];
+            ny = ny + dire[i][1];
+            //越界
+            if (nx &lt; 0 || ny &lt; 0 || nx &gt;= h || ny &gt;= w) {
+                tag = 1;
+                break;
+            }
+            if (nx == ex &amp;&amp; ny == ey) {//走着走着到终点了
+                flag = 1;
+                countNum++;//步数需要+1，不然会少一步
+                res = min(res, countNum);
+                return;
+            }
+        }
+        if (tag) continue;//越界换方向
+        
+        int stone = 0;//判断石头
+        if (maze[nx][ny] == 1) {
+            //击碎石头
+            maze[nx][ny] = 0;
+            stone = 1;
+            //退回到石头的前一步并继续深度搜索
+            dfs(nx - dire[i][0], ny - dire[i][1], countNum + 1, i);
+        } else {
+            dfs(nx, ny, countNum + 1, i);
+        }
+        if (stone) maze[nx][ny] = 1;//回溯
+    }
+
+}
+
+int main() {
+    while(cin&gt;&gt;w&gt;&gt;h, w&amp;&amp;h) {
+        for (int i = 0; i &lt; 30; i++) {
+            for (int j = 0; j &lt; 30; j++)
+                maze[i][j] = 0;
+        }
+
+        for (int i = 0; i &lt; h; ++i){
+					for(int j = 0; j &lt; w; ++j){
+						cin &gt;&gt; maze[i][j];
+						if (maze[i][j] == 2){
+							sx = i, sy = j;
+						}
+						else if (maze[i][j] == 3){
+							ex = i, ey = j;
+						}
+					}
+        }
+        res = 999999;
+        flag = 0;
+        dfs(sx, sy, 0, 0);
+        if (flag)
+            cout&lt;&lt;res&lt;&lt;endl;
+        else cout &lt;&lt; -1 &lt;&lt; endl;
+    }
+    return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Find-The-Multiple"><a href="#Find-The-Multiple" class="headerlink" title="Find The Multiple"></a>Find The Multiple</h3><p><a target="_blank" rel="noopener" href="http://poj.org/problem?id=1426">POJ-1426</a></p>
+<p>给定一个数字n，求n的倍数（只能由0和1组成）<br><strong>思路</strong></p>
+<p>直接暴搜两种情况，从1开始求倍数，*10或*10+1，每个样例的最小值不会超过long long的范围，所以*18次后还没结果就可以返回。</p>
+<p><strong>DFS</strong></p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+using namespace std;
+
+long long res;
+int flag;
+int n;
+
+void dfs(long long num, int countNum) {
+    if (flag) return;
+    if (num % n == 0) {
+        flag = 1;
+        res = num;
+        return;
+    }
+    if (countNum &gt;= 18) return;
+    dfs(num * 10, countNum + 1);
+    dfs(num * 10 + 1, countNum + 1);
+}
+
+int main() {
+    while(cin&gt;&gt;n, n) {
+        flag = 0, res = 0;
+        dfs(1, 0);
+        cout&lt;&lt;res&lt;&lt;endl;
+    }
+    return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="A-Knight’s-Journey"><a href="#A-Knight’s-Journey" class="headerlink" title="A Knight’s Journey"></a>A Knight’s Journey</h3><p><a target="_blank" rel="noopener" href="http://poj.org/problem?id=2488">POJ-2488 </a></p>
+<p>给定一个棋盘，一个棋子，棋子只能按8个方向（下图中白色圆点就是马棋子从该位置开始可以走到的位置）移动，求该棋子是否能完整走完这个棋盘，若能，输出移动的完整路径。路径按照字典序优先。</p>
+<p><strong>思路</strong></p>
+<p>依旧是DFS深搜，终点是字典序的问题，我到现在都没想明白为什么这么排列。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+
+using namespace std;
+int dir_x[8] = {-1,1,-2,2,-2,2,-1,1};
+int dir_y[8] = {-2,-2,-1,-1,1,1,2,2};
+bool visited[26][26];
+
+struct Path
+{
+    /* data */
+    int x;
+    char y;
+};
+Path jump_path[100];
+bool tag = false;
+int p, q;//行列
+
+void clean() {
+    tag = false;
+    for (int i = 0; i &lt; 100; i++)
+    {
+        jump_path[i].x = 0;
+        jump_path[i].y = '\0';
+    }
+
+    for (int i = 0; i &lt; 26; i++)
+    {
+        for (int j = 0; j &lt; 26; j++)
+        {
+            visited[i][j] = false;
+        }
+        
+    }
+}
+
+
+void dfs(int startX, int startY, int jumpNum) {
+    int nextX, nextY;
+    if (jumpNum == p * q) {
+        tag = true;
+        for (int i = 0; i &lt; jumpNum; i++) {
+            printf("%c%d", jump_path[i].y, jump_path[i].x);
+        }
+        cout&lt;&lt;endl&lt;&lt;endl;
+        return;
+    }
+
+    for (int i = 0; i &lt; 8; i++)
+    {
+        nextX = startX + dir_x[i];
+        nextY = startY + dir_y[i];
+
+        if (nextX &lt; 0 || nextX &gt;= p || nextY &lt; 0 || nextY &gt;= q   || visited[nextX][nextY]) continue;
+
+        visited[nextX][nextY] = true;
+        jump_path[jumpNum].x = nextX + 1;
+        jump_path[jumpNum].y = nextY + 'A';
+        jumpNum++;
+        
+        dfs(nextX, nextY, jumpNum);
+        if (tag)
+        {
+            return;
+        }
+        //回溯
+        visited[nextX][nextY] = false;
+        jump_path[jumpNum].y = '\n';
+        jump_path[jumpNum].x = 0;
+        jumpNum--;
+    }
+}
+int main() {
+        int num = 0;
+        cin &gt;&gt; num;
+
+        for (int i = 0; i &lt; num; i++)
+        {
+            cin &gt;&gt; p &gt;&gt; q;
+            clean();
+            cout &lt;&lt;"Scenario #"&lt;&lt;i+1&lt;&lt;":"&lt;&lt;endl;
+            jump_path[0].x = 1;
+            jump_path[0].y = 'A';
+            visited[0][0] = true;
+            dfs(0, 0, 1);
+            if (!tag)
+            {
+                cout &lt;&lt;"impossible" &lt;&lt; endl &lt;&lt; endl;
+            }
+            
+        }
+        return 0;
+    }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
                 
