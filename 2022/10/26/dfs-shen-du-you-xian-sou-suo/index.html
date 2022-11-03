@@ -375,7 +375,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4.1k
+                    5.3k
                 </div>
                 
 
@@ -740,7 +740,7 @@ int main (){
 <li>扔石头出界算失败</li>
 <li>次数要求在10次之内</li>
 </ol>
-<p>找最短距离依然是使用BFS，这里限制因素比较多，要仔细考虑一下。</p>
+<p>这里限制因素比较多，要仔细考虑一下。</p>
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
 using namespace std;
 
@@ -959,6 +959,238 @@ int main() {
         }
         return 0;
     }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Prime-Path"><a href="#Prime-Path" class="headerlink" title="Prime Path"></a>Prime Path</h3><p><a target="_blank" rel="noopener" href="http://poj.org/problem?id=3126">POJ-3126</a></p>
+<p>题意：给两个数A，B，求A到B需要变化的最小次数，每次变化时都必须是素数</p>
+<p><strong>思路</strong></p>
+<p>先把10000内的素数打表，然后分个、十、百、千位去搜索，除千位以外都可0-9，千位不可取0，还是细节问题。注意数组别开的太小，给定的数＞=1000，不能包含前导0。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+using namespace std;
+int T;
+int n, m;
+int prime[50000],vis[50000];
+struct node{
+ 
+	int num,cnt;
+};
+int POW(int x, int y){
+	if (y == 0)return 1;
+	for (int i = 2; i &lt;= y; ++i){
+		x *= 10;
+	}
+	return x;
+}
+int ans = 0;
+node q[20000];
+void bfs(){
+ 
+	//node *q = new node[20000]();
+	int pre = 0, rear = 1;
+	q[0].num = n, q[0].cnt = 0;
+	vis[n] = 1;
+	while (pre != rear){
+		node now = q[pre++];
+		if (now.num == m){
+			cout &lt;&lt; now.cnt &lt;&lt; endl;
+			ans = 1;
+			break;
+		}
+		int temp;
+		temp = now.num / 10 * 10;//个位
+		for (int i = 0; i &lt; 10; ++i){
+			int temp2 = temp + i;
+			//temp += i;
+			if (vis[temp2] == 0 &amp;&amp; prime[temp2]){
+				node p; p.num = temp2, p.cnt = now.cnt + 1;
+				q[rear++] = p;
+				vis[temp2] = 1;
+			}
+		}
+		temp = now.num / 100 * 100+now.num%10;//十位
+		for (int i = 0; i &lt; 10; ++i){
+			int temp2 = temp + i * 10;
+			if (vis[temp2]==0 &amp;&amp; prime[temp2]){
+				node p; p.num = temp2, p.cnt = now.cnt + 1;
+				q[rear++] = p; vis[temp2] = 1;
+			}
+		}
+		temp = now.num / 1000 * 1000 + now.num % 100;//百位
+		for (int i = 0; i &lt; 10; ++i){
+			int temp2 = temp + i * 100;
+			if (vis[temp2]==0 &amp;&amp; prime[temp2]){
+				node p; p.num = temp2, p.cnt = now.cnt + 1;
+				q[rear++] = p; vis[temp2] = 1;
+			}
+		}
+		temp = now.num % 1000;//千位
+		for (int i = 1; i &lt; 10; ++i){
+			int temp2 = temp + i * 1000;
+			if (vis[temp2]==0 &amp;&amp; prime[temp2]){
+				node p; p.num = temp2, p.cnt = now.cnt + 1;
+				q[rear++] = p; vis[temp2] = 1;
+			}
+		}
+	}
+	//delete(q);
+}
+int main(){
+	cin &gt;&gt; T;
+	int cnt = 0;
+	for (int i = 2; i &lt;=20000; ++i){//打表
+		int flag = 0;
+		for (int j = 2; j &lt; i; ++j){
+			if (i%j == 0){
+				flag = 1;
+				break;
+			}
+			
+		}
+		if (!flag)
+		prime[i] = 1;
+	}
+	while (T--){
+		cin &gt;&gt; n &gt;&gt; m;
+		for (int i = 0; i &lt;= 15000; ++i){
+			vis[i] = 0;
+			q[i].num = 0, q[i].cnt = 0;
+		}
+		ans = 0;
+		if (n == m){
+			cout &lt;&lt; 0 &lt;&lt; endl; continue;
+		}
+		bfs();
+		if (!ans)cout &lt;&lt; "Impossible" &lt;&lt; endl;
+	}
+ 
+	return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="Pots"><a href="#Pots" class="headerlink" title="Pots"></a>Pots</h3><p><a target="_blank" rel="noopener" href="http://poj.org/problem?id=3414">POJ-3414</a></p>
+<p>题意：倒水问题，只有6种操作，均只对两个杯子A，B进行操作，只要两个杯子任意一杯的水量=目标水量，即判定找到，6种操作分别是1.倒满A杯，2.倒满B杯，3.倒空A，4.倒空B，5.A倒进B，6.B倒进A。注意：A倒B时，A当前水量&gt;B当前剩余容量（不是水量），则溢出部分需要留在A内，B倒A同理</p>
+<p><strong>思路</strong><br>题目要求最少的操作数，那必然是BFS，每一次都搜索这六种操作即可</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+using namespace std;
+int T;
+int n,m,C;
+int vis[1000][1000];
+struct node{
+ 
+	int a,b,cnt;
+	int s[10000];
+};node q[10000];
+int main(){
+	//while (cin &gt;&gt; n&gt;&gt; m&gt;&gt; C){
+	cin &gt;&gt; n &gt;&gt; m &gt;&gt; C;
+		int flag = 0;
+		
+		int pre = 0, rear = 1;
+		q[0].a = 0, q[0].b = 0, q[0].cnt = 0;
+		vis[0][0] = 1;
+		while (pre != rear){
+			node now = q[pre++];
+			if (now.a == C || now.b == C){
+			//	flag = 1;
+				cout &lt;&lt; now.cnt &lt;&lt; endl;
+				//1是倒1，2倒2，3是1to2，4是2to1，5是倒空1，6是倒空2
+				for (int i = 0; i &lt; now.cnt; ++i){
+					if (now.s[i] == 1)cout &lt;&lt; "FILL(1)" &lt;&lt; endl;
+					else if (now.s[i] == 2)cout &lt;&lt; "FILL(2)" &lt;&lt; endl;
+					else if (now.s[i] == 3)cout &lt;&lt; "POUR(1,2)" &lt;&lt; endl;
+					else if (now.s[i] == 4)cout &lt;&lt; "POUR(2,1)" &lt;&lt; endl;
+					else if (now.s[i] == 5)cout &lt;&lt; "DROP(1)" &lt;&lt; endl;
+					else if (now.s[i] == 6)cout &lt;&lt; "DROP(2)" &lt;&lt; endl;
+				}
+				return 0;
+				break;
+			}
+			for (int i = 0; i &lt; 6; ++i){
+				node temp=now;
+				int a = now.a, b = now.b;
+				if (i == 0){//倒满a
+					if (a == n)continue;
+					a = n;
+					if (!vis[a][b]){
+						temp.s[now.cnt] = 1;
+						temp.a = a, temp.b = b, temp.cnt = now.cnt + 1;
+						q[rear++] = temp;
+						vis[a][b] = 1;
+					}
+				}
+				else if (i == 1){//倒满b
+					//if (!b){
+					if (b == m)continue;
+					b = m;
+					if (!vis[a][b]){
+						//temp.s = now.s;
+						temp.s[now.cnt] = 2;
+						temp.a = a, temp.b = b, temp.cnt = now.cnt + 1;
+						q[rear++] = temp;
+						vis[a][b] = 1;
+					}
+					//}
+				}
+				else if (i == 2){//a to b
+					int sb = m - b;//b还能放多少
+					if (sb==0 || a==0)continue;//b放不下或a没有东西倒
+					if (a - sb &gt;= 0){
+						a -= sb;
+						b = m;
+					}
+					else{
+						b += a;
+						a = 0;
+					}
+					if (!vis[a][b]){
+						temp.s[now.cnt] = 3;
+						temp.a = a, temp.b = b, temp.cnt = now.cnt + 1;
+						q[rear++] = temp;
+						vis[a][b] = 1;
+					}
+				}
+				else if (i == 3){//b to a
+					int sa = n - a;//a还能放多少
+					if (sa==0 || b==0)continue;//a放不下或b为空
+					if (b - sa &gt;= 0){//b还有剩余
+						b -= sa;
+						a = n;
+					}
+					else{
+						a += b;
+						b = 0;
+					}
+					if (!vis[a][b]){
+						temp.s[now.cnt] = 4;
+						temp.a = a, temp.b = b, temp.cnt = now.cnt + 1;
+						q[rear++] = temp;
+						vis[a][b] = 1;
+					}
+				}
+				else if (i == 4){//倒空a
+					if (a==0)continue;
+					a = 0;
+					if (!vis[a][b]){
+						temp.s[now.cnt] = 5;
+						temp.a = a, temp.b = b, temp.cnt = now.cnt + 1;
+						q[rear++] = temp;
+						vis[a][b] = 1;
+					}
+				}
+				else if (i == 5){//倒空b
+					if (b==0)continue;
+					b = 0;
+					if (!vis[a][b]){
+						temp.s[now.cnt] = 6;
+						temp.a = a, temp.b = b, temp.cnt = now.cnt + 1;
+						q[rear++] = temp;
+						vis[a][b] = 1;
+					}
+				}
+			}
+		}
+		cout &lt;&lt; "impossible" &lt;&lt; endl;
+	//}
+	return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
                 
