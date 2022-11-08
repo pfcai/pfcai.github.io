@@ -4,10 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="常见排序算法, pfcai-blog">
-    <meta name="description" content="今天把常见的排序算法进行总结，包括时空复杂度和一些特殊情况下的优劣。
-low三人冒泡排序冒泡排序是从数组元素第一个开始，两两比较，循环n-1次，每一次循环都会确定一个值的位置。
-public void bubbleSort(intp[] l">
+    <meta name="keywords" content="后端面试, pfcai-blog">
+    <meta name="description" content="把最近看的后端面试题进行整理。天道好轮回，感觉这些已经学了n遍了还要看:(
+计算机网络OSI七层协议，五层协议和每层中常见的协议七层：物理层、数据链路层、网络层、传输层、会话层、表示层、应用层五层：物理层、数据链路层、网络层、传输层、应用层">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -19,7 +18,7 @@ public void bubbleSort(intp[] l">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>常见排序算法 | pfcai-blog</title>
+    <title>后端面试 | pfcai-blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -319,7 +318,7 @@ public void bubbleSort(intp[] l">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">常见排序算法</h1>
+                    <h1 class="description center-align post-title">后端面试</h1>
                 </div>
             </div>
         </div>
@@ -343,23 +342,14 @@ public void bubbleSort(intp[] l">
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E6%8E%92%E5%BA%8F/">
-                                <span class="chip bg-color">排序</span>
+                            <a href="/tags/%E5%90%8E%E7%AB%AF-JAVA/">
+                                <span class="chip bg-color">后端 JAVA</span>
                             </a>
                         
                     </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="post-category">
-                                数据结构与算法
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -368,28 +358,28 @@ public void bubbleSort(intp[] l">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-10-22
+                    2022-11-06
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-11-01
+                    2022-11-08
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.1k
+                    5.6k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    9 分
+                    19 分
                 </div>
                 
 
@@ -412,264 +402,226 @@ public void bubbleSort(intp[] l">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>今天把常见的排序算法进行总结，包括时空复杂度和一些特殊情况下的优劣。</p>
-<h2 id="low三人"><a href="#low三人" class="headerlink" title="low三人"></a>low三人</h2><h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><p>冒泡排序是从数组元素第一个开始，两两比较，循环n-1次，每一次循环都会确定一个值的位置。</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">public void bubbleSort(intp[] list) {
-  int len = list.length;
-  for (int i = 0; i &lt; len - 1; i++) {
-    boolean flag = false;
-    for (int j = 0; j &lt; len - i; j++) {
-      if (list[j] &gt; list[j + 1]) {
-        int temp = list[j + 1];
-        list[j + 1] = list[j];
-        list[j] = temp;
-        flag = true;
-      }
-    }
-    if (flag == false) {
-     return; 
-    }
-  }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>冒泡排序的时间复杂度是O(n2),最坏的情况是数组有序，所以可以进行优化，添加标识为判断是否存在交换，不存在交换则结束循环。</p>
-<h3 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h3><p>每次选择一个数组中最小的数放入数组，所以外层循环n次。</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">public void selectSort(int[] list) {
-  for (int i = 0; i &lt; list.length; i++){
-    int min = i;//min是最小那个数的索引
-    for (int j = 0; j &lt; list.length; j++) {
-      if (list[min] &gt; list[j]) {
-        min = j;
-      }
-    }
-    int temp = list[min];
-    list[min] = list[i];
-    list[i] = temp;
-  }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>时间复杂度是O(n2)，</p>
-<h3 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h3><p>假设插入排序就是抽牌理牌的过程，手中的牌是有序的，每次抽一张牌将它插到手中并保持有序。</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">public void insertSort(int[] list) {
-  for (int i = 1;i &lt; list.length; i++) {
-    int j = i - 1;
-    int cur = list[i];
-    while (j &gt; 0 &amp;&amp; list[j] &gt; temp) {
-      //把大牌向后调整
-      list[j + 1] = list[j];
-      j--;
-    }
-    list[j] = temp;
-  }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>插入排序的时间复杂度也是O(n2)，因为每次需要移动牌，从1 + 2 + … + n = n(n + 1)。</p>
-<h2 id="牛三人"><a href="#牛三人" class="headerlink" title="牛三人"></a>牛三人</h2><h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><p>快速排序的中心思想是取一个元素p（第一个元素），使元素p归位，列表被p分成两部分，左边都比p小，右边比p大；递归完成排序。</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">public void fastSort(int[] list, int left, int right) {
-  if (left &lt; right) {
-    int mid = partition(list, left, right);
-    fastSort(list, left, mid - 1);
-    fastSort(list, mid + 1, right);
-  }
-}
-
-public void partition(int[] list, int left, int right) {
-  int temp = list[left];
-  while (left &lt; right) {
-    while (left &lt; right &amp;&amp; list[left] &lt;= temp) {
-      left++;
-    }
-    list[right] = list[left];
-    while (left &lt; right &amp;&amp; list[right] &gt;= temp) {
-      right--;
-    }
-    list[left] = list[right];
-  }
-  list[left] = temp;
-  return left;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>快速排序的时间复杂度是O(nlogn)，快速排序存在最坏情况，也就是数组为倒序</p>
-<h3 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h3><p>归并排序的思路是，将数组分成两部分，分别将左边和右边变有序，然后使用将两个有序数组合并为一个有序数组的方法</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">public void mergeSort(int[] list, int left, int right, int temp) {
-  if (left &lt; right) {
-    int mid = (left + right) / 2;
-    mergeSort(list, left, mid, temp);//左有序
-    mergeSort(list, mid + 1, right, temp);//右有序
-    merge(list, left, mid, right, temp);
-  }
-}
-
-public void merger(int[] list, int left, int mid, int right, int[] temp) {
-  int i = left;
-  int j = mid + 1;
-  int count = 0;
-  while (i &lt;= mid &amp;&amp; j &lt;= right) {
-    if (list[i] &gt; list[j]) {
-      temp[count++] = list[j++];
-    } else {
-      temp[count++] = list[i++];
-    }
-  }
-  while (i &lt;= mid) {
-    temp[count++] = list[i++];
-  }
-  while (j &lt;= right) {
-    temp[count++] = list[j++];
-  }
-  //将排好的顺序放入原数组中
-  count = 0;
-  int leftI = left;
-  while (leftI &lt;= right) {
-    list[left++] = temp[count++];
-  }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>归并排序的时间复杂度：O(nlogn)，归并有logn层，每一层循环n次。</p>
-<h3 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h3><p>理解堆排序需要知道二叉树的一些相关知识，这里不讨论。堆排序分为大根堆和小根堆。顾名思义，大根堆是父节点元素一定比子节点大，小根堆则相反。堆排序我们首先需要根据数组构建出堆，然后进行调堆、出数的操作。二叉树有两种存储方式，一种是数组（本写法默认数组存放），一种是链式存储。</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">public void sift(int[] list, int low, int high) {
-  int i = low;//表示根节点
-  int j = i * 2 + 1;//表示左孩子
-  int temp = list[i];
-  while (j &lt;= high) {
-    if (j + 1 &lt;= high &amp;&amp; list[j + 1] &gt; list[j]) {//右孩子大
-      j = j + 1;
-    }
-    if (list[j] &gt; temp) {//孩子节点比父节点大，交换节点，更新标识位
-      list[i] = list[j];
-      i = j;
-      j = i * 2 + 1;
-    } else {
-      	list[i] = temp;//可省略
-      	break;
-    }
-  }
-  list[i] = temp;
-}
-
-public void heapSort(int[] list) {
-  //从最后一个父节点向上建堆
-  for (int i = (list.length - 2) / 2; i &gt; -1; i--) {//最后一个元素是len-1，子节点-&gt;父节点公式：“(i - 1) / 2”
-    sift(list, i, list.length - 1);
-  }
-  //出数-不额外申请空间
-  for (int i = list.length - 1; i &gt; -1; i--) {
-    int temp = list[0];
-    list[0] = list[i];
-    list[i] = temp;
-    sift(list, 0, i - 1);
-  }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>堆排序的时间复杂度：sift函数是O(logn)，建堆为O(n),出数为O(n)，所以是2 * O(n*logn) = O(nlogn)。但快速排序比堆排序快一点。</p>
-<h2 id="其他类型排序"><a href="#其他类型排序" class="headerlink" title="其他类型排序"></a>其他类型排序</h2><h3 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h3><p>希尔排序是分组插入排序算法，通过选取一个gap，将每组相邻距离为gap的元素进行直接插入排序，每进行完一次排序，gap的变为原来的一半，直到gap为1为止。希尔排序每趟不使元素有序，而是使整体数据越接近有序</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">public void insertShellSort(int[] list, int gap) {
-  for (int i = gap; i &lt; list.length; i++) {
-    int j = i - gap;
-    int cur = list[i];
-    while (j &gt;= 0 &amp;&amp; list[j] &gt; cur) {
-      list[j + gap] = list[j];
-      j -= gap;
-    }
-    list[j + gap] = temp;
-  }
-}
-
-public void shellSort(int[] list) {
-  int gap = list.length / 2;
-  while (gap &gt; = 1) {
-    insertShellSort(list, gap);
-    gap /= 2;
-  }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>希尔排序的时间复杂度与选取的gap序列有关，不同的gap时间复杂度不同，可以在wiki上看到现存gap的时间复杂度。</p>
-<h3 id="桶排序"><a href="#桶排序" class="headerlink" title="桶排序"></a>桶排序</h3><p>首先将列表元素粉崽不同的桶中，在将桶中的元素排序。比较关键的是桶的大小和桶的个数。</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">public void binSort(int[] list, int bucketSize) {
-  //首先计算一下桶的个数
-  int maxNum = list[0], minNum = list[0];
-  for (int i = 0; i &lt; list.length; i++) {
-    maxNum = Math.max(list[i],maxNum);
-    minNum = Math.min(list[i],minNum);
-  }
-  List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;();//使用list模拟桶
-  //创建桶
-  int bucketNum = (maxNum - minNum) / bucketSize;
-  for (int i = 0;i &lt; bucketNum; i++) {
-    res.add(new ArrayList&lt;&gt;());
-  }
-  //将数依次放入桶中
-  for (int i = 0;i &lt; list.length; i++) {
-    res.get((list[i] - minNum) / bucketSize)).add(list[i]);
-  }
-  //对每个桶进行排序
-  for (int i = 0; i &lt; bucketNum; i++) {
-    Collections.sort(res.get(i));
-  }
-  //将桶中的数据放入数组
-  int index = 0;
-  for(int i = 0; i &lt; bucketNum; i++) {
-    for (int j = 0; j &lt; res.get(i).size(); j++) {
-      list[index++] = res.get(i).get(j);
-    }
-  }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>桶排序的时间复杂度和数据分布有关系，对不同的数据分布采取不同的分桶策略。（k表示一个桶平均的长度）平均情况下时间复杂度为O(n + k)，最坏情况为：O(n2k)。空间复杂度是O(nk)。</p>
-<h3 id="计数排序"><a href="#计数排序" class="headerlink" title="计数排序"></a>计数排序</h3><p>计数排序非常好理解，创建一个计数数组，将元素依次放入计数数组中，每放入一个数，计数数组值+1，最后遍历计数数组打印元素。因为数组本身是有序的，所以可以进行排序。</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">public void countSort(int[] list) {
-  //找出最大的值目的是创建数组
-  int max = list[0];
-  for (int i : list) {
-    max = Math.max(i,max);
-  }
-  int[] res = new int[max];
-  for (int i : list) {
-    res[i]++;
-  }
-  for (int i = 0; i &lt; res.length; i++) {
-    for (int j = 0; j &lt; res[i]; j++) {
-      System.out.println(i);
-    }
-  }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>计数排序时间复杂度是O(n)，但是有限制，即n不能太大。</p>
-<h3 id="基数排序"><a href="#基数排序" class="headerlink" title="基数排序"></a>基数排序</h3><p>基数排序的原理是先从个位排序，然后百位、千位…直到位数最大的长度为止。具体实现：创建10个桶表示每位数上的值0~9，依次取个位上的数放入桶中，然后将桶内元素排序并放回原数组，接着取十位、百位等等。</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">public void redixSort(int[] list) {
-  int maxNum = list[0];
-  for (int i : list) {
-    maxNum = Math.max(maxNum,i);
-  }
-  int count = 0;//循环计数
-  while (Math.pow(10, count) &lt;= maxNum) {
-    int bucketNum 10;
-    List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;();
-    while (bucketNum &gt; 0) {
-      res.add(new ArrayList&lt;&gt;());
-      bucketNum--;
-    }
-    //取每一位的值并放入桶中
-    int digit = 0;
-    for (int i : list) {
-      digit = (int)(i / Math.pow(10,count)% 10 );
-      res.get(digit).add(i);
-    }
-    //将桶中的数组放入数组
-    int index = 0;
-    for (int i = 0;i &lt; bucketNum; i++) {
-      for (int j = 0; j&lt; res.get(i).size(); j++) {
-        list[index++] = res.get(i).get(j);
-      }
-    }
-    count++;//取下一位
-  }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>基数的时间复杂度是：O(nk)，k是最大数的数字位数。空间复杂度为O(k + n)。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>排序算法到这里基本结束，时空复杂度和每个排序的最优最列情况要了解清楚，剩下的就是能通过伪代码记忆下来。每天做几道算法题巩固，那在笔试中就应该没有问题了。</p>
-<p>Peace &amp; Love。</p>
-
+                <p>把最近看的后端面试题进行整理。天道好轮回，感觉这些已经学了n遍了还要看:(</p>
+<h2 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h2><h3 id="OSI七层协议，五层协议和每层中常见的协议"><a href="#OSI七层协议，五层协议和每层中常见的协议" class="headerlink" title="OSI七层协议，五层协议和每层中常见的协议"></a>OSI七层协议，五层协议和每层中常见的协议</h3><p>七层：物理层、数据链路层、网络层、传输层、会话层、表示层、应用层<br>五层：物理层、数据链路层、网络层、传输层、应用层</p>
+<ul>
+<li>应用层：HTTP（超文本传输协议）、FTP（文件传输协议）、DNS（域名解析协议）</li>
+<li>传输层：TCP（传输控制协议）、UDP（用户数据协议）。</li>
+<li>网络层：IP（互联网协议/数据包协议）、ICMP（网际报文控制协议）、RIP（路由信息协议）。单位：数据包</li>
+<li>链路层：ARP（地址解析协议）。单位：帧</li>
+<li>物理层：IEEE。单位：比特</li>
+</ul>
+<p><strong>ARP协议：</strong><br>ip地址转化为mac地址的一种协议，一般有路由器中会缓存一张ARP表，这个表会映射IP和MAC地址。从而达到搜索地址的方式，如果表中没有对应的映射，就会发送一个ARP 广播，询问ip对应的mac地址是什么。</p>
+<p><strong>TCP协议：</strong><br>传输控制协议，是一个面向连接的传输协议，他是一个能提供高可靠性的通信协议，所谓高可靠性指的是数据无丢失、数据无误、数据无失序、数据无重到达。</p>
+<p><strong>UDP协议：</strong><br>用户数据报协议，是一种不可靠无连接、实时性高的协议，在数据发送前，不需要提前建立连接，所以可以更高效地传输数据。但可靠性无法保证。</p>
+<h3 id="TCP三次握手四次挥手"><a href="#TCP三次握手四次挥手" class="headerlink" title="TCP三次握手四次挥手"></a>TCP三次握手四次挥手</h3><p><strong>三次握手</strong></p>
+<p>客户端–发送带有 SYN = 1，seq=x 的数据包–一次握手–服务端</p>
+<p>服务端–发送带有 SYN = 1，ACK = 1，seq = y，ack = x  + 1 的数据包–二次握手–客户端</p>
+<p>客户端–发送带有带有 ACK = 1，seq = x + 1， ack = y + 1 的数据包–三次握手–服务端</p>
+<ol>
+<li><code>SYN</code>，同步序列编号；</li>
+<li><code>seq=y</code>，服务端的序列号为y；</li>
+<li><code>ACK=1</code>，表示确认客户端序列号有效，此时确认号（ack）有值；</li>
+<li><code>ack=seq+1</code>：ack的值为客户端传来的序列号（seq）加1，即ack=x+1；</li>
+</ol>
+<p><img src="1.png"></p>
+<p>三次握手的目的是建立可靠的通信信道，三次握手最主要的目的就是双方确认自己与对方的发送与接收是正常的。 第一次握手：Client 什么都不能确认；Server 确认了对方发送正常，自己接收正常，第二次握手：Client 确认了自己发送、接收正常，对方发送、接收正常；Server 确认了：对方发送正常，自己接收正常，第三次握手：Client 确认了：自己发送、接收正常，对方发送、接收正常；Server 确认 了：自己发送、接收正常，对方发送、接收正。 所以三次握手就能确认双发收发功能都正常，缺一不可。</p>
+<p><strong>第二次回传为什么要带SYN？</strong></p>
+<p>接收端传回发送端所发送的ACK是为了告诉客户端，我接收到的信息确实就是你所发送的信号了，这表明从客户端到服务端的通信是正常的。而回传SYN则是为了建立并确认从服务端到客户端的通信。</p>
+<p><strong>为什么要四次挥手</strong></p>
+<p>TCP是全双工的工作模式，因此<strong>每个方向都必须单独进行关闭</strong>。当一方完成自己的数据发送任务后，就可以发送一个FIN报文来终止这个方向的连接。刚开始客户端和服务器端都处于ESTABLISHED状态，假如客户端发起关闭请求；</p>
+<ol>
+<li>第一次挥手：客户端向服务器发送FIN报文（FIN=1,seq=u），发完后进入FIN_WAIT_1状态，即主动关闭TCP连接，不再发送数据，但可以接收服务器发来的报文，等待服务器回复；</li>
+<li>第二次挥手：服务器接到FIN报文后，返回一个ACK报文（ACK=1,ack=u+1,seq=v），表明自己接收到此报文，服务器进入CLOSE_WAIT关闭等待状态，此时客户端就知道服务端接到自己的断开连接请求，进入到FIN_WAIT_2状态，TCP处于半关闭状态，但服务器端可能还有数据要传输。</li>
+<li>第三次挥手：服务器关闭客户端连接，发送FIN报文（FIN=1，seq=w,ack=u+1）给客户端，此时服务器处于LAST_ACK状态，等待客户端回应。</li>
+<li>第四次挥手：客户端收到FIN报文后，发送一个ACK（ACK=1,ack=w+1,seq=u+1）给服务器作为应答，此时客户端处于TIME_WAIT状态，这个状态是为了等待足够的时间以确保TCP接收到连接中断请求的确认。</li>
+</ol>
+<p><strong>等待2MSL的原因</strong></p>
+<p>MSl表示报文的最大生命周期。等待的原因是防⽌客户端最后⼀次发给服务器的确认在⽹络中丢失以⾄于客户端关闭，⽽服务端并未关闭，导致资源的浪费。还可以让本次连接的所有的⽹络包在链路上消失，以防造成不必要的⼲扰。</p>
+<p><strong>TCP如何保证可靠连接</strong></p>
+<ol>
+<li>tcp建立连接会经过三次握手，确保连接建立。    </li>
+<li>tcp断开连接也会经历四次挥手，保证连接释放，保障旧连接不会影响新连接。    </li>
+<li>tcp中每个报文都有序列，保证消息最后是有序，且提供对丢失消息的重试机制。    </li>
+<li>tcp报文会有些校验机制，比如校验和， TCP 将保持它首部和数据的检验和，目的是检测数据在传输过程中的任何变化。</li>
+<li> TCP 连接的每一方都有固定大小的缓冲空间，TCP的接收端只允许发送端发送其缓冲区能接纳的数据。当接收方来不及处理发送方的数据，能提示发送方降低发送的速率，防止包丢失。</li>
+<li>拥塞控制，网络拥挤时减少发送量。主要算法：慢开始 、 拥塞避免 、快重传和快恢复。</li>
+<li>ARQ协议（自动重传请求），基本原理就是每发完一个分组就停止发送，等待对方确认。在收到确认后再发下一个分组。</li>
+<li>超时重传， 当 TCP 发出一个段后，它启动一个定时器，等待目的端确认收到这个报文段。如果不能及时收到一个确认，将重发这个报文段。</li>
+</ol>
+<h3 id="从输入URL到页面加载发生了什么"><a href="#从输入URL到页面加载发生了什么" class="headerlink" title="从输入URL到页面加载发生了什么"></a>从输入URL到页面加载发生了什么</h3><p>总体来说分为以下几个过程:</p>
+<ol>
+<li>DNS解析。寻找哪台机器上有你需要资源的过程。使用DNS缓存一级一级向上查找。</li>
+<li>TCP连接。</li>
+<li>发送HTTP请求。浏览器向服务器发送请求，cookies会随着请求一起发送。</li>
+<li>服务器处理请求并返回HTTP报文。</li>
+<li>浏览器解析渲染页面。</li>
+<li>连接结束。</li>
+</ol>
+<h3 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h3><p><img src="2.png" alt="2"></p>
+<h3 id="Cookie和Session的作用和区别"><a href="#Cookie和Session的作用和区别" class="headerlink" title="Cookie和Session的作用和区别"></a>Cookie和Session的作用和区别</h3><p>Cookie 和 Session都是用来跟踪浏览器用户身份的会话方式，但是两者的应用场景不太一样。 </p>
+<p>Cookie 一般用来保存用户信息比如：①我们在 Cookie 中保存已经登录过得用户信息，下次访问网站的时候页面可以自动帮你登录的一些基本信息给填了；②一般的网站都会有保持登录也就是说下次你再访问网站的时候就不需要重新登录了，这是因为用户登录的时候我们可以存放了一个 Token 在 Cookie 中，下次登录的时候只需要根据 Token 值来查找用户即可(为了安全考虑，重新登录一般要将 Token 重写)；③登录一次网站后访问网站其他页面不需要重新登录。</p>
+<p>Session 的主要作用就是通过服务端记录用户的状态。 典型的场景是购物车，当你要添加商品到购物车的时候，系统不知道是哪个用户操作的，因为 HTTP 协议是无状态的。服务端给特定的用户创建特定的 Session 之后就可以标识这个用户并且跟踪这个用户了。 </p>
+<p>区别：Cookie 数据保存在客户端(浏览器端)，Session 数据保存在服务器端。 相对来说 Session 安全性更高。如果要在 Cookie 中存储一些敏感信息，不要直接写入Cookie 中，最好能将 Cookie 信息加密然后使用到的时候再去服务器端解密。</p>
+<h3 id="URI和URL"><a href="#URI和URL" class="headerlink" title="URI和URL"></a>URI和URL</h3><p>URI(Uniform Resource Identifier) 是统一资源标志符，可以唯一标识一个资源。 </p>
+<p>URL(Uniform Resource Location) 是统一资源定位符，可以提供该资源的路径。它是一种具体的 URI，即 URL 可以用来标识一个资源，而且还指明了如何 locate 这个资源。</p>
+<p>URI的作用像身份证号一样，URL的作用更像家庭住址一样。URL是一种具体的URI，它不仅唯一标识资源，而且还提供了定位该资源的信息。</p>
+<h2 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h2><h3 id="关系型数据库"><a href="#关系型数据库" class="headerlink" title="关系型数据库"></a>关系型数据库</h3><p>关系型数据库就是一种建立在关系模型的基础上的数据库。关系模型表明了数据库中所存储的数据之间的联系（一对一、一对多、多对多）。<strong>MySQL</strong> 是一种关系型数据库，主要用于持久化存储系统中的一些数据比如用户信息。端口号是3306。</p>
+<h3 id="存储引擎"><a href="#存储引擎" class="headerlink" title="存储引擎"></a>存储引擎</h3><p>MySQL有两种存储引擎，一个是MyISAM另一个是InnoDB，因为InnoDB支持事务所以现在默认的存储引擎是它，其之间的差别如下：</p>
+<ul>
+<li>MyISAM 只有表级锁(table-level locking)，而 InnoDB 支持行级锁(row-level locking)和表级锁,默认为行级锁。</li>
+<li>MyISAM 不提供事务支持。InnoDB 提供事务支持，具有提交(commit)和回滚(rollback)事务的能力。</li>
+<li>MyISAM 不支持外键，而 InnoDB 支持外键。</li>
+<li>MyISAM 不支持崩溃后安全修复，而 InnoDB 支持。使用 InnoDB 的数据库在异常崩溃后，数据库重新启动的时候会保证数据库恢复到崩溃前的状态。这个恢复的过程依赖于 redo log 。 </li>
+</ul>
+<p><strong>InnoDB如何保持ACID？</strong></p>
+<p>InnoDB 引擎使用 <strong>redo log(<strong>重做日志</strong>)</strong> 保证事务的持久性，使用 <strong>undo log(<strong>回滚日志</strong>)</strong> 来保证事务的原子性。通过锁机制、<strong>MVCC</strong> 等手段来保证事务的隔离性（ 默认支持的隔离级别是 <strong>REPEATABLE-READ</strong> ）。保证了事务的持久性、原子性、隔离性之后，一致性才能得到保障。</p>
+<h3 id="锁机制和InnoDB锁算法"><a href="#锁机制和InnoDB锁算法" class="headerlink" title="锁机制和InnoDB锁算法"></a>锁机制和InnoDB锁算法</h3><p><strong>表级所和行级锁对比</strong></p>
+<ul>
+<li>表级锁： MySQL中锁定粒度最大的一种锁，对当前操作的整张表加锁，实现简单，资源消耗也比较少，加锁快，不会出现死锁。其锁定粒度最大，触发锁冲突的概率最高，并发度最低，MyISAM 和 InnoDB 引擎都支持表级锁。</li>
+<li>行级锁： MySQL 中锁定 粒度最小 的一种锁，只针对当前操作的行进行加锁。 行级锁能大大减少数据库操作的冲突。其加锁粒度最小，并发度高，但加锁的开销也最大，加锁慢，会出现死锁。</li>
+</ul>
+<p><strong>三种锁算法</strong></p>
+<ul>
+<li>Record lock：记录锁，单个行记录上的锁</li>
+<li>Gap lock：间隙锁，锁定一个范围，不包括记录本身</li>
+<li>Next-key lock：record+gap临键锁，锁定一个范围，包含记录本身</li>
+</ul>
+<h3 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h3><p>事务是逻辑上的一组操作，要么都执行，要么都不执行。<br>数据库事务可以保证多个对数据库的操作（也就是 SQL 语句）构成一个逻辑上的整体。构成这个逻辑上的整体的这些数据库操作遵循：要么全部执行成功**,**要么全部不执行 。 </p>
+<p><strong>ACID</strong></p>
+<ol>
+<li>原子性：事务是最小的执行单位，不允许分割。事务的原子性确保动作要么全部完成，要么完全不起作用；</li>
+<li>一致性：执行事务前后，数据保持一致；</li>
+<li>隔离性：并发访问数据库时，一个用户的事务不被其他事务所干扰，各并发事务之间数据库是独立的；</li>
+<li>持久性：一个事务被提交之后。它对数据库中数据的改变是持久的，即使数据库发生故障也不应该对其有任何影响。</li>
+</ol>
+<p><strong>并发事务带来的问题</strong></p>
+<ol>
+<li>脏读：简单来说就是一个事务对某数据进行了修改但是未提交，而另一个事务对此数据进行了访问并且使用。相当于读到了“脏读“</li>
+<li>丢失修改：事务A对数据访问时事务B也访问了此数据，而在A对数据进行修改时B也进行了修改，造成了事务A修改操作的丢失。</li>
+<li>不可重复读：在一个事务中多次访问一个数据，而在其访问过程中另一个事务也进行了访问并且修改，造成了第一个事务两次访问数据不一样，即同一个事务两次访问数据不同。</li>
+<li>幻读：类似3，就是事务A在读取了几行数据，这是事务B对数据进行了插入，这是A再读时发现了几条陌生数据，多了不存在的数据称幻读。</li>
+</ol>
+<p><strong>事务隔离级别</strong></p>
+<ol>
+<li>**READ-UNCOMMITTED(<strong>读取未提交</strong>)**： 最低的隔离级别，允许读取尚未提交的数据变更，可能会导致脏读、幻读或不可重复读。</li>
+<li>**READ-COMMITTED(<strong>读取已提交</strong>)**： 允许读取并发事务已经提交的数据，可以阻止 脏读，但是幻读或不可重复读仍有可能发生。</li>
+<li>**REPEATABLE-READ(<strong>可重复读</strong>)**： 对同一字段的多次读取结果都是一致的，除非数据是被本身事务自己所修改，可以阻止脏读和不可重复读，但幻读仍有可能发生。</li>
+<li>**SERIALIZABLE(<strong>可串行化</strong>)**： 最高的隔离级别，完全服从 ACID 的隔离级别。所有的事务依次逐个执行，这样事务之间就完全不可能产生干扰，也就是说，该级别可以防止脏读、不可重复读以及幻读。 </li>
+</ol>
+<p>InnoDB默认使用的隔离级别时可重复读，其不会有任何性能损失。</p>
+<h3 id="MySQl索引"><a href="#MySQl索引" class="headerlink" title="MySQl索引"></a>MySQl索引</h3><p>索引是一个单独的、存储在磁盘上的 数据库结构，包含着对数据表里所有记录的引用指针。其实现在存储引擎中，InnoDB / MyISAM 只支持 BTree 索引。</p>
+<p><strong>优点</strong></p>
+<ol>
+<li>提高数据的查询的效率（类似于书的目录）</li>
+<li>可以保证数据库表中每一行数据的唯一性（唯一索引）</li>
+<li>减少分组和排序的时间（使用分组和排序子句进行数据查询），被索引的列会自动进行分组和排序</li>
+</ol>
+<p><strong>缺点</strong></p>
+<ol>
+<li>占用磁盘空间</li>
+<li>降低更新表的效率</li>
+</ol>
+<h4 id="索引分类"><a href="#索引分类" class="headerlink" title="索引分类"></a>索引分类</h4><p>1、普通索引和唯一索引</p>
+<ul>
+<li>普通索引：MySQL 中的基本索引类型，允许在定义索引的列中插入重复值和空值</li>
+<li>唯一索引：要求索引列的值必须唯一，但允许有空值<ul>
+<li>如果是组合索引，则列值的组合必须唯一</li>
+<li>主键索引是一种特殊的唯一索引，不允许有空值</li>
+</ul>
+</li>
+</ul>
+<p>2、单列索引和组合索引</p>
+<ul>
+<li>单列索引：一个索引只包含单个列，一个表可以有多个单列索引</li>
+<li>组合索引：在表的多个字段 组合上创建的索引<ul>
+<li>只有在查询条件中使用了这些字段的左边字段 时，索引才会被使用（最左前缀原则）</li>
+</ul>
+</li>
+</ul>
+<p>3、全文索引</p>
+<ul>
+<li>全文索引的类型为 fulltext</li>
+<li>在定义索引的列上支持值的全文查找，允许在这些索引列中插入重复值和空值</li>
+<li>全文索引可以在 char、varchar 和 text 类型的列上创建</li>
+</ul>
+<h4 id="索引的数据结构"><a href="#索引的数据结构" class="headerlink" title="索引的数据结构"></a>索引的数据结构</h4><p><strong>BTree</strong>：属于多叉树，又名多路平衡查找树。</p>
+<ul>
+<li>BTree 的节点存储多个元素（ 键值 - 数据 / 子节点的地址）</li>
+<li>BTree 节点的键值按非降序排列</li>
+<li>BTree 所有叶子节点都位于同一层（具有相同的深度）</li>
+</ul>
+<p><strong>BTree</strong> 的不足：</p>
+<ul>
+<li>不支持范围查询的快速查找（每次查询都得从根节点重新进行遍历）</li>
+<li>节点都存储数据会导致磁盘数据存储比较分散，查询效率有所降低</li>
+</ul>
+<p><strong>B+Tree</strong>：在 BTree 的基本上，对 BTree 进行了优化：只有叶子节点才会存储 键值 - 数据，非叶子节点只存储 键值和子节点的地址；叶子节点之间使用双向指针进行连接，形成一个双向有序链表。</p>
+<p><strong>B+Tree</strong> 的优点：</p>
+<ul>
+<li>保证了等值查询和范围查询的快速查找</li>
+<li>单一节点存储更多的元素，减少了查询的 IO 次数</li>
+</ul>
+<h4 id="索引实现方式"><a href="#索引实现方式" class="headerlink" title="索引实现方式"></a>索引实现方式</h4><p>MyISAM：</p>
+<ol>
+<li>MyISAM的数据文件（.myd）和索引文件（.myi） 是分开存储的。</li>
+<li>MyISAM（B+Tree）叶子节点中存储的键值为索引列的值，数据为索引所在行的磁盘地址。</li>
+<li>MyISAM的主键索引（Primary key）和辅助索引（Secondary key）在结构上没有任何区别，只是主键索引要求键值唯一，而辅助索引键值可以重复。</li>
+</ol>
+<p>InnoDB：</p>
+<ol>
+<li>数据和索引都存储在一个文件中（.ibd）</li>
+<li>一般情况下，聚簇索引等同于主键索引；除聚簇索引外的所有索引均称为辅助索引</li>
+<li>InnoDB（B+Tree）叶子节点中存储的键值为索引列的值。如果是聚簇索引，数据为整行记录（除了主键值）。如果是辅助索引，数据为该行的主键值。</li>
+</ol>
+<h2 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h2><h3 id="设计模式分类"><a href="#设计模式分类" class="headerlink" title="设计模式分类"></a>设计模式分类</h3><ul>
+<li><p>创建型模式：用于创建对象的设计模式。可以简化用户创建对象的过程。可以降低耦合度，用户不用关心对象具体的创建过程。</p>
+<ul>
+<li>单例模式：某个类只能有一个实例，提供一个全局的访问点。</li>
+<li>简单工厂：一个工厂类根据传入的参量决定创建出那一种产品类的实例。</li>
+<li>工厂方法：定义一个创建对象的接口，让子类决定实例化那个类。</li>
+<li>抽象工厂：创建相关或依赖对象的家族，而无需明确指定具体类。</li>
+<li>建造者模式：封装一个复杂对象的构建过程，并可以按步骤构造。</li>
+<li>原型模式：通过复制现有的实例来创建新的实例。</li>
+</ul>
+</li>
+<li><p>结构型模式：组织对象之间的结构。使其易于扩展。</p>
+<ul>
+<li>适配器模式：将一个类的方法接口转换成客户希望的另外一个接口。</li>
+<li>组合模式：将对象组合成树形结构以表示“”部分-整体“”的层次结构。</li>
+<li>装饰模式：动态的给对象添加新的功能。</li>
+<li>代理模式：为其他对象提供一个代理以便控制这个对象的访问。</li>
+<li>亨元（蝇量）模式：通过共享技术来有效的支持大量细粒度的对象。</li>
+<li>外观模式：对外提供一个统一的方法，来访问子系统中的一群接口。</li>
+<li>桥接模式：将抽象部分和它的实现部分分离，使它们都可以独立的变化。</li>
+</ul>
+</li>
+<li><p>行为型模式：主要用于决定对象如何做出行为。</p>
+<ul>
+<li>模板模式：定义一个算法结构，而将一些步骤延迟到子类实现。</li>
+<li>解释器模式：给定一个语言，定义它的文法的一种表示，并定义一个解释器。</li>
+<li>策略模式：定义一系列算法，把他们封装起来，并且使它们可以相互替换。</li>
+<li>状态模式：允许一个对象在其对象内部状态改变时改变它的行为。</li>
+<li>观察者模式：对象间的一对多的依赖关系。</li>
+<li>备忘录模式：在不破坏封装的前提下，保持对象的内部状态。</li>
+<li>中介者模式：用一个中介对象来封装一系列的对象交互。</li>
+<li>命令模式：将命令请求封装为一个对象，使得可以用不同的请求来进行参数化。</li>
+<li>访问者模式：在不改变数据结构的前提下，增加作用于一组对象元素的新功能。</li>
+<li>责任链模式：将请求的发送者和接收者解耦，使的多个对象都有处理这个请求的机会。</li>
+<li>迭代器模式：一种遍历访问聚合对象中各个元素的方法，不暴露该对象的内部结构。</li>
+</ul>
+</li>
+</ul>
+<h3 id="六大设计原则"><a href="#六大设计原则" class="headerlink" title="六大设计原则"></a>六大设计原则</h3><ol>
+<li>开闭原则：对扩展开放，对修改关闭。就是如果要修改原有的功能或者是扩展功能，尽量去扩展原有的代码，而不是修改原来已有的代码。</li>
+<li>里氏替换原则：任何子类对象都应该可以替换其派生的超类对象 。即，子类可以扩展父类的功能，但不要修改父类原有的功能。 也就是说，当一个子类继承父类后，尽量不要去重写它原有的方法。</li>
+<li>依赖转至原则：要面向接口编程，不要面向实现编程。两个模块交互时，都访问各自接口，而不是具体的实现类。</li>
+<li>单一职责原则：一个对象要专注于一种事情，不要让它担任太多责任。</li>
+<li>接口隔离原则：一个接口尽量只包含用户关心的内容。就是一个接口不要太庞大。</li>
+<li>迪米特原则：如果两个软件实体之间不是特别必要，尽量不要让他们直接通信。而是找个第三方进行转发，比如使用MQ（消息队列）。</li>
+<li>合成复用原则：如果在“组合/聚合”和“继承”之间做抉择时，优先选择“组合/聚合”。</li>
+</ol>
+<h3 id="常用设计模式"><a href="#常用设计模式" class="headerlink" title="常用设计模式"></a>常用设计模式</h3>
                 
             </div>
             <hr/>
@@ -683,8 +635,8 @@ public void shellSort(int[] list) {
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E6%8E%92%E5%BA%8F/">
-                                    <span class="chip bg-color">排序</span>
+                                <a href="/tags/%E5%90%8E%E7%AB%AF-JAVA/">
+                                    <span class="chip bg-color">后端 JAVA</span>
                                 </a>
                             
                         </div>
@@ -734,13 +686,13 @@ public void shellSort(int[] list) {
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/10/22/android-kai-fa-tian-jia-da-wen-jian-dan-chuang/">
+                <a href="/2022/11/08/jvm-si-wei-dao-tu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="Android开发-添加大文件弹窗">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="JVM思维导图">
                         
-                        <span class="card-title">Android开发-添加大文件弹窗</span>
+                        <span class="card-title">JVM思维导图</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -751,16 +703,12 @@ public void shellSort(int[] list) {
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-10-22
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-11-08
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Android%E5%BC%80%E5%8F%91/" class="post-category">
-                                    Android开发
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Phil Cai
                             
                         </span>
                     </div>
@@ -768,8 +716,8 @@ public void shellSort(int[] list) {
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Android/">
-                        <span class="chip bg-color">Android</span>
+                    <a href="/tags/JAVA/">
+                        <span class="chip bg-color">JAVA</span>
                     </a>
                     
                 </div>
@@ -783,13 +731,13 @@ public void shellSort(int[] list) {
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/10/19/android-kai-fa-xiu-gai-preference/">
+                <a href="/2022/11/04/samsung-adv/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="Android开发-修改Preference">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="Samsung ADV">
                         
-                        <span class="card-title">Android开发-修改Preference</span>
+                        <span class="card-title">Samsung ADV</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -800,16 +748,12 @@ public void shellSort(int[] list) {
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-19
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-11-04
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Android%E5%BC%80%E5%8F%91/" class="post-category">
-                                    Android开发
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Phil Cai
                             
                         </span>
                     </div>
@@ -817,8 +761,8 @@ public void shellSort(int[] list) {
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Android/">
-                        <span class="chip bg-color">Android</span>
+                    <a href="/tags/BFS-DFS/">
+                        <span class="chip bg-color">BFS&amp;&amp;DFS</span>
                     </a>
                     
                 </div>
@@ -961,7 +905,7 @@ public void shellSort(int[] list) {
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">45.2k</span>
+                        class="white-color">51.8k</span>
             
             
             

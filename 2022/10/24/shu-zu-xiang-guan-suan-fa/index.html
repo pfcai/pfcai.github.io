@@ -5,8 +5,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="数组, pfcai-blog">
-    <meta name="description" content="数组是存放在连续内存空间上的相同类型数据的集合。正是因为数组的在内存空间的地址是连续的，所以我们在删除或者增添元素的时候，就难免要移动其他元素的地址。数组的元素是不能删的，只能覆盖。
-">
+    <meta name="description" content="数组相关知识数组是存放在连续内存空间上的相同类型数据的集合。正是因为数组的在内存空间的地址是连续的，所以在删除或者增添元素的时候，就难免要移动其他元素的地址。数组的元素是不能删的，只能覆盖。
+二分查找leetcode704
+给定一个 n 个">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -374,21 +375,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-11-01
+                    2022-11-08
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    85
+                    1.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    4 分
                 </div>
                 
 
@@ -411,7 +412,98 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>数组是存放在连续内存空间上的相同类型数据的集合。正是因为数组的在内存空间的地址是连续的，所以我们在删除或者增添元素的时候，就难免要移动其他元素的地址。数组的元素是不能删的，只能覆盖。</p>
+                <h3 id="数组相关知识"><a href="#数组相关知识" class="headerlink" title="数组相关知识"></a>数组相关知识</h3><p>数组是存放在连续内存空间上的相同类型数据的集合。正是因为数组的在内存空间的地址是连续的，所以在删除或者增添元素的时候，就难免要移动其他元素的地址。数组的元素是不能删的，只能覆盖。</p>
+<h3 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h3><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/binary-search/">leetcode704</a></p>
+<p>给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target  ，写一个函数搜索 nums 中的 target，如果目标值存在返回下标，否则返回 -1。<br><strong>思路</strong></p>
+<p>二分查找早已经刻在了DNA里，但是使用二分查找的条件就是数组有序。先从中间找，然后向两边判断，具体代码如下。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution {
+public:
+    int search(vector&lt;int&gt;&amp; nums, int target) {
+        int left = 0;
+        int right = nums.size() - 1;
+        while (left &lt;= right) {
+            int mid = ((right - left) / 2) + left;
+            if (nums[mid] == target) {
+                return mid;
+            } else if (nums[mid] &lt; target) 
+            {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return -1;
+    }
+};<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这里有两种写法，一种是left &lt;= right那么在边界移动的时候right left不等于mid，另一种是left &lt; right那么此时right left需要等于mid进行判断。也就是左闭右闭合、左闭右开的区别。</p>
+<h2 id="双指针"><a href="#双指针" class="headerlink" title="双指针"></a>双指针</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/remove-element/">leetcode27移除元素</a></p>
+<p>给你一个数组 nums 和一个值 val，你需要 原地 移除所有数值等于 val 的元素，并返回移除后数组的新长度。不要使用额外的数组空间，你必须仅使用 O(1) 额外空间并<strong>原地</strong>修改输入数组。元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。</p>
+<p><strong>思路</strong></p>
+<p>也很经典的题目，用双指针，快指针：寻找新数组的元素 ，新数组就是不含有目标元素的数组，慢指针：指向更新新数组下标的位置。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution {
+public:
+    int removeElement(vector&lt;int&gt;&amp; nums, int val) {
+        int slowIndex = 0;
+        for (int fastIndex = 0; fastIndex &lt; nums.size(); fastIndex++) {
+            if (nums[fastIndex] != val) {
+                nums[slowIndex++] = nums[fastIndex];
+            }
+        }
+    return slowIndex;
+    }
+};<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="有序数组的平方"><a href="#有序数组的平方" class="headerlink" title="有序数组的平方"></a>有序数组的平方</h3><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/squares-of-a-sorted-array/">leetcode977</a></p>
+<p>给你一个按非递减顺序 排序的整数数组 nums，返回每个数字的平方组成的新数组，要求也按非递减顺序排序。</p>
+<p>示例 1： 输入：nums = [-4,-1,0,3,10] 输出：[0,1,9,16,100] 解释：平方后，数组变为 [16,1,0,9,100]，排序后，数组变为 [0,1,9,16,100]</p>
+<p><strong>思路</strong></p>
+<p>这里的难度在于有负数，负数后的平方可能是大的也可能小，暴力解法就是全部取平方后再排序，但是时间复杂度就变成了O(nlogn)。有效的还是用双指针，依次计算比较平方后的首位元素大小然后放入新的数组中。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+class Solution {
+public:
+    vector&lt;int&gt; sortedSquares(vector&lt;int&gt;&amp; nums) {
+        int k = nums.size() - 1;
+        vector&lt;int&gt; res(nums.size(), 0);
+        for (int i = 0, j = nums.size() - 1; i &lt;= j;) {
+            if(nums[i] * nums[i] &lt; nums[j] * nums[j]) {
+                res[k--] = nums[j] * nums[j];
+                j--;
+            } else {
+                res[k--] = nums[i] * nums[i];
+                i++;
+            }
+        }
+        return res;
+    }
+};<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-size-subarray-sum/">leetcode209长度最小子数组</a></p>
+<p>给定一个含有 n 个正整数的数组和一个正整数 s ，找出该数组中满足其和 ≥ s 的长度最小的 连续 子数组，并返回其长度。如果不存在符合条件的子数组，返回 0。</p>
+<p>示例：输入：s = 7, nums = [2,3,1,2,4,3] 输出：2 解释：子数组 [4,3] 是该条件下的长度最小的子数组。</p>
+<p><strong>思路</strong></p>
+<p>暴力搜索就是两个for循环的嵌套，时间复杂度是O(n2)，本质也是滑动窗口，外层循环是滑动窗口的头，内层循环是滑动窗口的尾。使用一次for循环的话难点在于如何处理滑动窗口的长度，具体的解释请看<a target="_blank" rel="noopener" href="https://www.programmercarl.com/0209.%E9%95%BF%E5%BA%A6%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84.html#%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3">这里</a>，下面是代码。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">class Solution {
+public:
+    int minSubArrayLen(int target, vector&lt;int&gt;&amp; nums) {
+        int result = INT32_MAX;
+        int i = 0;//滑动窗口起始
+        int subLength = 0;
+        int sum = 0;//总和
+        for (int j = 0; j &lt; nums.size(); j++) {
+            sum += nums[j];
+            while (sum &gt;= target) {
+                subLength = j - i + 1;
+                result = result &lt; subLength ? result : subLength;
+                sum -= nums[i++];//滑动窗口的头依次向前走,精髓
+            }
+        }
+        return result = result == INT32_MAX ? 0 : result;
+    }
+};<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 
                 
             </div>
@@ -526,13 +618,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/10/23/android-di-yi-xing-dai-ma/">
+                <a href="/2022/10/23/android-kai-fa-da-dian-jie-mian-you-hua/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Android-第一行代码">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="Android开发-打点+界面优化">
                         
-                        <span class="card-title">Android-第一行代码</span>
+                        <span class="card-title">Android开发-打点+界面优化</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -704,7 +796,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">45.2k</span>
+                        class="white-color">51.8k</span>
             
             
             
