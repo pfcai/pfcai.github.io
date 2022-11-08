@@ -4,6 +4,44 @@
   
     
     <entry>
+      <title>后端面试</title>
+      <link href="/2022/11/08/hou-duan-mian-shi/"/>
+      <url>/2022/11/08/hou-duan-mian-shi/</url>
+      
+        <content type="html"><![CDATA[<p>把最近看的后端面试题进行整理。天道好轮回，感觉这些已经学了n遍了还要看:(</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 后端 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Samsung ADV</title>
+      <link href="/2022/11/04/samsung-adv/"/>
+      <url>/2022/11/04/samsung-adv/</url>
+      
+        <content type="html"><![CDATA[<p>11月3日参加了三星线下机考，3个小时10次提交机会，测试用例共50个，全部通过才算完成。这次没通过，准备学习一段时间再尝试一下。把做过的题先存个档，方便复习。</p><h2 id="Airplane-Game"><a href="#Airplane-Game" class="headerlink" title="Airplane Game"></a>Airplane Game</h2><p><a href="https://blog.csdn.net/weixin_42688573/article/details/124970517">题目链接</a></p><p>题意就是在N*5的区域内有硬币(1)和敌机(2)，求出飞机结束游戏时最多能获得的硬币数量，飞机移动只能选左、右、不动，一次只能走一格。飞机初始有0个硬币1个导弹，前进方向出现敌机可以使用导弹，如果使用导弹会将5行内的敌机全部消除，不使用则硬币数-1，当硬币数&lt;0时游戏结束。<br><strong>思路</strong></p><p>求硬币最多肯定使用DFS，每一轮递归都看是否能够结束游戏，并且每轮递归直接比较出硬币数量就可以。关键点在于导弹的使用如何处理。当时想的是这样处理：只要有导弹那我就使用，然后取消炸弹使用就用回溯，就定一了一个boom和backTracking方法，前者消灭敌机，后者回溯恢复敌机。飞机定义为一个结构体，有coins和bomb属性。具体伪代码如下:</p><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int map[][];int h;int res;struct plane {  int coins;  int bomb;}void boom(int x);//将5行内敌机消灭void backTracking(int x);//回溯将消灭的敌机复原void dfs(int row, int pos) {  if(row == h){}//游戏结束  //左移  int tag = 0;  if(plane.bomb) boom(), tag = 1;  dfs(x - 1, pos - 1);  if (tag) backTracking();  //右移  //判断是否使用炸弹然后回溯同上  dfs(x - 1, pos + 1);  //向前  //判断是否使用炸弹然后回溯同上 dfs(x - 1, pos);}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>回过头发现自己写的代码真的是漏洞百出，没有判断移动边界的情况，而且使用炸弹的方式一点也不好。然后回家搜了一下题解才有了思路。代码我放在下面了，用c++写的直接可以运行。（太难了我哭）</p><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;using namespace std;#define SIZE 12int map[SIZE][5];int N;//测试用例总数int res;//最后返回结果int coins;//硬币数int h;//总行数int pos;//飞机所处列int max(int x, int y) {  if (x &lt; y) return y;  return x;}void dfs(int row, int pos) {  //硬币&lt;0结束  if (coins &lt; 0) {    return;  }  //飞机可以结束游戏  if (row == h) {    if (coins &gt;= 0) {      res = max(res, coins);//取最大的硬币数    } else {      res = -1;    }  }  int left, right;//左移右移递归的精髓  //飞机靠左边界只能不动或右移  if (pos == 0) {    left = 0;    right = 1;  }  //飞机靠右边界只能不动或左移  else if (pos == 4) {    left = 3;    right = 4;  }  //三种情况都可以  else {    left = pos - 1;    right = pos + 1;  }  //开始移动  for (int i = left; i &lt; right; i++) {    //判断遇到的是硬币还是敌机    if (map[row][i] == 1) {      coins++;      dfs(row + 1, i);      coins--;//回溯    }    if (map[row][i] == 2) {      coins--;      dfs(row + 1, i);      coins++;    }    if (map[row][i] == 0) {      dfs(row + 1, i);    }  }}int main() {  cin&gt;&gt;N;//测试用例数量  for (int q = 1; q &lt;= N; q++) {    cin&gt;&gt;h;//游戏区域高度    for (int i = h - 1; i &gt;= 0; i++) {      for (int j = 0; j &lt; 5; j++) {        cin&gt;&gt;map[i][j];      }    }    //初始化参数    res = -1;    coins = 0;    pos = 2;    //备用数组赋值    int temp[SIZE][5];    for (int i = 0; i &lt; h; i++) {      for (int j = 0; j &lt; 5; j++) {        temp[i][j] = map[i][j];      }    }    //处理敌机，每5行使用导弹处理敌机    for (int k = 0; k &lt;= h - 5; k++) {      //恢复原数组      for (int i = 0; i &lt; h; i++) {      for (int j = 0; j &lt; 5; j++) {        map[i][j] = temp[i][j];      }    }            for (int i = k; i &lt; k + 5; i++) {        for (int j = 0; j &lt; 5; j++) {          if (map[i][j] == 2)            map[i][j] = 0;        }      }      dfs(0, pos);    }    cout&lt;&lt;"#"&lt;&lt;q&lt;&lt;res&lt;&lt;endl;  }  return 0;}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><a href="https://blog.csdn.net/caiyuzhu001/article/details/54088015">思路源</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> BFS&amp;&amp;DFS </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>DFS和BFS</title>
       <link href="/2022/10/26/dfs-shen-du-you-xian-sou-suo/"/>
       <url>/2022/10/26/dfs-shen-du-you-xian-sou-suo/</url>
@@ -20,7 +58,7 @@
       
         <tags>
             
-            <tag> BFS DFS </tag>
+            <tag> BFS&amp;&amp;DFS </tag>
             
         </tags>
       
