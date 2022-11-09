@@ -376,7 +376,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-11-01
+                    2022-11-09
                 </div>
                 
 
@@ -588,10 +588,6 @@ public List&lt;String&gt; letterCombinations(String digits) {
 }
 
 public void combineHelper(String digits, int index, String[] letterMap) {
-  //剪枝操作
-  if (sum &gt; target) {
-    return;
-  }
   //终止条件
   if (index == digits.length()) {
     	res.add(path.toString());
@@ -601,14 +597,13 @@ public void combineHelper(String digits, int index, String[] letterMap) {
   String temp = letterMap[digits.charAt(index) - '0'];
   for (int i = 0; i &lt; temp.length(); i++) {//控制树的横向遍历
     path.append(temp.charAt(i));//处理节点
-    combineHelper(n, k, index + 1);//递归，控制树的纵向遍历，注意下一层搜索要从i+1开始
+    combineHelper(digits, index + 1, letterMap);//递归，控制树的纵向遍历，注意下一层搜索要从i+1开始
     path.deleteCharAt(path.length() - 1);//回溯，撤销处理的节点
   }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="组合总和"><a href="#组合总和" class="headerlink" title="组合总和"></a>组合总和</h3><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/combination-sum/">力扣题目链接</a></p>
-<p>给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。</p>
-<p>candidates 中的数字可以无限制重复被选取。</p>
+<p>给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。candidates 中的数字可以无限制重复被选取。</p>
 <p>说明：</p>
 <ul>
 <li>所有数字（包括 target）都是正整数。</li>
@@ -657,29 +652,32 @@ public void combine(int[] candidates, int target, int startIndex {
 <p>说明： 所有数字（包括目标数）都是正整数。 解集不能包含重复的组合。</p>
 <p>示例 1: 输入: candidates = [10,1,2,7,6,1,5], target = 8, 所求解集为: [ [1, 7], [1, 2, 5], [2, 6], [1, 1, 6] ]</p>
 <p>示例 2: 输入: candidates = [2,5,2,1,2], target = 5, 所求解集为: [  [1,2,2],  [5] ]</p>
-<h4 id="思路-4"><a href="#思路-4" class="headerlink" title="思路"></a>思路</h4><p><strong>本题的难点在于：集合（数组candidates）有重复元素，但还不能有重复的组合</strong>。所以我们需要去重。<strong>去重，其实就是使用过的元素不能重复选取。</strong><br>组合问题可以抽象为树形结构，那么“使用过”在这个树形结构上是有两个维度的，一个维度是同一树枝上使用过，一个维度是同一树层上使用过。回看一下题目，元素在同一个组合内是可以重复的，怎么重复都没事，但两个组合不能相同。</p>
-<p><strong>所以去重的是同一树层上的“使用过”，同一树枝上的都是一个组合里的元素，不用去重</strong>。<br>所以实现去重我们要在for循环里去实现。我们使用startIndex去记录下一层for循环的起始位置，那么当i &gt; startIndex的时候说明遍历到了树同层的下一个元素，这个时候再判断一下i - 1和i的元素值是否相同，相同则说明元素重复，不同则继续纵向遍历。那么代码实现如下：</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">List&lt;Integer&gt; path = new ArrayList&lt;&gt;();
-List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;();
-public List&lt;List&lt;Integer&gt;&gt; combinationSum(int[] candidates, int target) {
-  combineHelper(candidates, target, 0);
-  return res;
-}
-
-public void combine(int[] candidates, int target, int startIndex {
-  if (target == 0) {
-    res.add(new ArrayList&lt;&gt;(path));
-    return;
-  }
-  for (int i = startIndex, i &lt; candidates.length; i++) {
-    if (i &gt; startIndex &amp;&amp; candidates[i - 1] == candidates[i]) {
-      continue;
+<h4 id="思路-4"><a href="#思路-4" class="headerlink" title="思路"></a>思路</h4><p><strong>本题的难点在于：集合（数组candidates）有重复元素，但还不能有重复的组合</strong>。所以需要去重。<strong>去重，其实就是使用过的元素不能重复选取。</strong><br>组合问题可以抽象为树形结构，那么“使用过”在这个树形结构上是有两个维度的，一个维度是同一树枝上使用过，一个维度是同一树层上使用过。回看一下题目，元素在同一个组合内是可以重复的，怎么重复都没事，但两个组合不能相同。<strong>所以去重的是同一树层上的“使用过”，同一树枝上的都是一个组合里的元素，不用去重</strong>。<br>实现去重我们要在for循环里去实现。我们使用startIndex去记录下一层for循环的起始位置，那么当i &gt; startIndex的时候说明遍历到了树同层的下一个元素，这个时候再判断一下i - 1和i的元素值是否相同，相同则说明元素重复，不同则继续纵向遍历。<strong>还有一点是要对数组进行排序</strong>。那么代码实现如下：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">class Solution {
+    List&lt;Integer&gt; path = new ArrayList&lt;&gt;();
+    List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;();
+    public List&lt;List&lt;Integer&gt;&gt; combinationSum2(int[] candidates, int target) {
+        Arrays.sort(candidates);
+        combine(candidates, target, 0);
+        return res;
     }
-    path.add(candidates[i]);
-    combine(candidates, target - candidates[i], i + 1);//本题要求数字不可重复，所以传入的就是i + 1
-    path.remove(path.size() - 1);
-  }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+    public void combine(int[] list, int target, int startIndex) {
+        if (target == 0) {
+            res.add(new ArrayList&lt;&gt;(path));
+            return;
+        }
+        for (int i = startIndex; i &lt; list.length; i++) {
+            if (list[i] &gt; target) break;
+            if (i != startIndex &amp;&amp; list[i] == list[i - 1]) {
+                continue;
+            }
+            path.add(list[i]);
+            combine(list, target - list[i], i + 1);
+            path.remove(path.size() - 1);
+        }
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <hr>
 <h2 id="分割问题"><a href="#分割问题" class="headerlink" title="分割问题"></a>分割问题</h2><h3 id="分割回文串"><a href="#分割回文串" class="headerlink" title="分割回文串"></a>分割回文串</h3><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/palindrome-partitioning/">力扣题目链接</a></p>
@@ -687,7 +685,7 @@ public void combine(int[] candidates, int target, int startIndex {
 <p>返回 s 所有可能的分割方案。</p>
 <p>示例: 输入: “aab” 输出: [ [“aa”,”b”], [“a”,”a”,”b”] ]</p>
 <h4 id="思路-5"><a href="#思路-5" class="headerlink" title="思路"></a>思路</h4><p><img src="4.jpg"></p>
-<p>切个问题还是可以画成树进行解决，下面直接给出代码，依旧是用三步曲解决问题。</p>
+<p>切割问题还是可以画成树进行解决，下面直接给出代码，依旧是用三步曲解决问题。</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java">//这里用来记录路径使用双端队列
 Deque&lt;String&gt; path = new LinkedList&lt;&gt;();
 List&lt;List&lt;String&gt;&gt; res = new ArrayList&lt;&gt;();
@@ -703,7 +701,7 @@ public void combine(String s, int startIndex) {
   }
   for (int i = startIndex; i &lt; s.length(); i++) {
     if (isPalindrome(s, startIndex, i)) {//是回文串，添加到path中去
-      String temp = s.subString(startIndex, i + 1);//把回文子串截断，subString是左开右闭，所以+1
+      String temp = s.subString(startIndex, i + 1);//把回文子串截断，subString是左闭右开，所以+1
       path.addLast(temp);
     } else {
       continue;//不是回文子串，继续循环
@@ -892,29 +890,29 @@ public void backTracking(int[] nums, int startIndex) {
 <p>这里不同的是不能像上一问题那样判断重复，所以需要使用一个哈希表用来查看值在同一层是否被使用过。然后判断一下大小。</p>
 </li>
 </ul>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">List&lt;Integer&gt; path = new ArrayList&lt;&gt;();
-    List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;();
-public List&lt;List&lt;Integer&gt;&gt; permute(int[] nums) {
-        boolean[] visited = new boolean[nums.length];
-        backTracking(nums, visited);
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">class Solution {
+    private List&lt;Integer&gt; path = new ArrayList&lt;&gt;();
+    private List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;();
+    public List&lt;List&lt;Integer&gt;&gt; findSubsequences(int[] nums) {
+        backtracking(nums,0);
         return res;
-}
+    }
 
-public void backTracking(int[] nums, boolean[] visited) {
-        if (path.size() == nums.length) {
+    private void backtracking (int[] nums, int start) {
+        if (path.size() &gt; 1) {
             res.add(new ArrayList&lt;&gt;(path));
-            return;
         }
-        for (int i = 0; i &lt; nums.length; i++) {
-            if (visited[i] == true) {
-                continue;
-            }
-            visited[i] = true;
+
+        int[] used = new int[201];
+        for (int i = start; i &lt; nums.length; i++) {
+            if (!path.isEmpty() &amp;&amp; nums[i] &lt; path.get(path.size() - 1) ||
+                    (used[nums[i] + 100] == 1)) continue;
+            used[nums[i] + 100] = 1;
             path.add(nums[i]);
-            backTracking(nums, visited);
+            backtracking(nums, i + 1);
             path.remove(path.size() - 1);
-            visited[i] = false;
         }
+    }
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="全排列II"><a href="#全排列II" class="headerlink" title="全排列II"></a>全排列II</h3><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/permutations-ii/">力扣题目链接(opens new window)</a></p>
@@ -924,7 +922,7 @@ public void backTracking(int[] nums, boolean[] visited) {
 <li>输入：nums = [1,1,2]</li>
 <li>输出： [[1,1,2], [1,2,1], [2,1,1]]</li>
 </ul>
-<h3 id="思路-10"><a href="#思路-10" class="headerlink" title="思路"></a>思路</h3><p>这道题不同的地方就是要求不能有重复的队列，这个问题老生常谈，就是在同一层中要求不能有重复的元素出现就行，和上面就差一个判断。判断之前一定要将数组重新排序</p>
+<h3 id="思路-10"><a href="#思路-10" class="headerlink" title="思路"></a>思路</h3><p>这道题不同的地方就是要求不能有重复的排列，这个问题老生常谈，就是在同一层中要求不能有重复的元素出现就行，和上面就差一个判断。判断之前一定要将数组重新排序</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java">List&lt;Integer&gt; path = new ArrayList&lt;&gt;();
 List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;();
 
