@@ -375,7 +375,7 @@ public void bubbleSort(intp[] l">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-11-08
+                    2022-11-09
                 </div>
                 
 
@@ -437,7 +437,7 @@ public void bubbleSort(intp[] l">
 <pre class="line-numbers language-java" data-language="java"><code class="language-java">public void selectSort(int[] list) {
   for (int i = 0; i &lt; list.length; i++){
     int min = i;//min是最小那个数的索引
-    for (int j = 0; j &lt; list.length; j++) {
+    for (int j = i + 1; j &lt; list.length; j++) {
       if (list[min] &gt; list[j]) {
         min = j;
       }
@@ -453,7 +453,7 @@ public void bubbleSort(intp[] l">
 <pre class="line-numbers language-java" data-language="java"><code class="language-java">public void insertSort(int[] list) {
   for (int i = 1;i &lt; list.length; i++) {
     int j = i - 1;
-    int cur = list[i];
+    int temp = list[i];
     while (j &gt; 0 &amp;&amp; list[j] &gt; temp) {
       //把大牌向后调整
       list[j + 1] = list[j];
@@ -491,7 +491,7 @@ public void partition(int[] list, int left, int right) {
 
 <p>快速排序的时间复杂度是O(nlogn)，快速排序存在最坏情况，也就是数组为倒序</p>
 <h3 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h3><p>归并排序的思路是，将数组分成两部分，分别将左边和右边变有序，然后使用将两个有序数组合并为一个有序数组的方法</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">public void mergeSort(int[] list, int left, int right, int temp) {
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">public void mergeSort(int[] list, int left, int right, int[] temp) {
   if (left &lt; right) {
     int mid = (left + right) / 2;
     mergeSort(list, left, mid, temp);//左有序
@@ -584,13 +584,13 @@ public void shellSort(int[] list) {
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>希尔排序的时间复杂度与选取的gap序列有关，不同的gap时间复杂度不同，可以在wiki上看到现存gap的时间复杂度。</p>
-<h3 id="桶排序"><a href="#桶排序" class="headerlink" title="桶排序"></a>桶排序</h3><p>首先将列表元素粉崽不同的桶中，在将桶中的元素排序。比较关键的是桶的大小和桶的个数。</p>
+<h3 id="桶排序"><a href="#桶排序" class="headerlink" title="桶排序"></a>桶排序</h3><p>首先将列表元素分在不同的桶中，在将桶中的元素排序。比较关键的是桶的大小和桶的个数。</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java">public void binSort(int[] list, int bucketSize) {
   //首先计算一下桶的个数
   int maxNum = list[0], minNum = list[0];
   for (int i = 0; i &lt; list.length; i++) {
-    maxNum = Math.max(list[i],maxNum);
-    minNum = Math.min(list[i],minNum);
+    maxNum = Math.max(list[i], maxNum);
+    minNum = Math.min(list[i], minNum);
   }
   List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;();//使用list模拟桶
   //创建桶
@@ -643,7 +643,7 @@ public void shellSort(int[] list) {
   }
   int count = 0;//循环计数
   while (Math.pow(10, count) &lt;= maxNum) {
-    int bucketNum 10;
+    int bucketNum = 10;//0-9
     List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;();
     while (bucketNum &gt; 0) {
       res.add(new ArrayList&lt;&gt;());
