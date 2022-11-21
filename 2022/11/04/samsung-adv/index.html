@@ -375,21 +375,21 @@ Airplane Game题目链接
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-11-10
+                    2022-11-21
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    944
+                    1.9k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    4 分
+                    7 分
                 </div>
                 
 
@@ -548,6 +548,80 @@ int main() {
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/caiyuzhu001/article/details/54088015">思路源</a></p>
+<h4 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h4><p>今天参加了培训，培训内容就是给你一道题，先做2个小时，然后讲师告诉你思路，接着完成你的代码。讲师的水平是不错的，言简意骇，然后也学到了一些解题思路，下面是题目大意和代码，记录一下。</p>
+<p><strong>题意</strong></p>
+<p>小人闯关，一共有T(2&lt;=T&lt;=20)关，每关会有数量不等的小怪，没个关卡有默认的金线。有3种方式通过关卡：1、直接给钱，不打怪。2、给双倍的价钱并且雇佣本关的小怪。3、当已雇佣的小怪数量大于等于本关数量时可以选择战斗，战斗不消耗金钱，但是小怪只能战斗3次，3次以后就被淘汰。问通关最少最少用的金币。输入：第一行T表示测试用例数量，第二行N表示每组用例中共有多少关，剩下N行输入每行两个元素，第一个表示每关小怪的数量，第二个表示通关需要的金钱。</p>
+<p><strong>思路</strong></p>
+<p>思路很简单，bfs和dfs都可以，但是bfs要使用结构体数组代替队列，这里使用dfs。 我当时卡在了如何判定小怪战斗次数并且进行淘汰，讲师的解法很直接，直接用3个参数代替参加过几次战斗的小怪数量。然后三种方式对应三次的dfs调用。调用战斗的dfs之前需要进行判断。下面给出具体的代码。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;iostream&gt;
+using namespace std;
+
+int T;//共有多少组测试用例
+int N;//每组用例中有多少关卡
+int res;//保存最后结果
+int orcs[1000][2];
+
+//n0表示没参加过战斗的雇佣小怪数量，n1表示参加过一次的
+void dfs(int count, int money, int n0, int n1, int n2){
+  //剪枝操作，当现有花的钱比res还多则不用继续往下搜索，因为钱只会变多不会变少
+  if (money &gt; res) return;
+  
+  //退出条件，通关了
+  
+  if (count == N) {
+    res = small(res, money);//取结果中最小的那个
+    return;
+  }
+  
+  //3种通关方式，这里的顺序也有说法，先战斗再给钱最后去雇佣，先去深度搜索不给钱的，然后去搜给钱少的，最后搜给钱多的，这样也会减少运算量。
+  //1、战斗
+  if (n0 + n1 + n2 &gt;= orcs[count][0]) {
+    //这里要有数量的判断，先用战斗过两次的人，用光了再去用战斗过一次的和0次的。
+    int num = orcs[count][0];
+    num -= n2;
+    if (num &gt; 0) {//n2的人数不够打
+      num -= n1;
+      if (num &gt; 0) {//n2和n1的人数都不够打
+        n1 = n0 - num;
+        n2 = 0;
+        n0 = 0;
+      } else {//n2不够打，n1够了
+        n2 = n1 - num;
+        n1 = n0;
+        n0 = 0;
+      }
+    } else {//n2人数就够了
+      n2 = n1;
+      n1 = n0;
+      n0 = 0;
+    }
+    dfs(count + 1, money, n0, n1, n2);
+  }
+  //2、给钱
+  dfs(count + 1, money + orcs[count][1], n0, n1, n2);
+  //3、雇佣
+  dfs(count + 1, money + 2 * orcs[count][1], n0 + orcs[count][0], n1, n2);
+}
+
+
+int main() {
+  cin &gt;&gt; T;
+  for (int index = 0; index &lt; T; index++) {
+    cin &gt;&gt; N;
+    memset(orcs, 0, sizeof(orcs));
+    res = 0;
+    for (int i = 0; i &lt; N; i++) {
+      cin &gt;&gt; orcs[i][0] &gt;&gt; orcs[i][1];
+      //这里的思路是我们每关都直接给钱不考虑雇佣和战斗，这也是一种解但不是最优解，这样就可以进行剪枝。
+      res += orcs[i][1];
+    }
+    dfs(0, 0, 0, 0, 0);
+    cout &lt;&lt; "#" &lt;&lt; index + 1 &lt;&lt; res &lt;&lt; endl;
+  }
+  return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这里没有数据去进行AC，在网上也没找到原题，有路过的兄弟有数据的可以告诉我下，大致的题目和接发就这样，准备准备就去第二次机试，希望能过吧！</p>
 
                 
             </div>
@@ -840,7 +914,7 @@ int main() {
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">58.9k</span>
+                        class="white-color">60.4k</span>
             
             
             
