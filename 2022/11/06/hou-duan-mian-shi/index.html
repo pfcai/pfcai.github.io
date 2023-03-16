@@ -374,21 +374,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-11-10
+                    2023-03-16
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    9.8k
+                    10.9k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    33 分
+                    37 分
                 </div>
                 
 
@@ -504,6 +504,50 @@
 <li>隔离性：并发访问数据库时，一个用户的事务不被其他事务所干扰，各并发事务之间数据库是独立的；</li>
 <li>持久性：一个事务被提交之后。它对数据库中数据的改变是持久的，即使数据库发生故障也不应该对其有任何影响。</li>
 </ol>
+<h4 id="Mysql-怎么保证⼀致性的？"><a href="#Mysql-怎么保证⼀致性的？" class="headerlink" title="Mysql 怎么保证⼀致性的？"></a><strong>Mysql</strong> 怎么保证⼀致性的？</h4><p>分为两个层⾯来说。 </p>
+<ol>
+<li><p>从数据库层⾯ </p>
+<ul>
+<li>数据库通过原⼦性、隔离性、持久性来保证⼀致性。也就是说ACID四⼤特性之中，C(⼀致 性)是⽬的，A(原⼦性)、I(隔离性)、D(持久性)是⼿段，是为了保证⼀致性，数据库提供的⼿段。数据库必须要实现<strong>AID</strong> 三⼤特性，才有可能实现⼀致性。 </li>
+</ul>
+</li>
+<li><p>从应⽤层⾯ </p>
+<ul>
+<li>通过代码判断数据库数据是否有效，然后决定回滚还是提交数据！</li>
+</ul>
+</li>
+</ol>
+<h4 id="Mysql-怎么保证原⼦性的？"><a href="#Mysql-怎么保证原⼦性的？" class="headerlink" title="Mysql 怎么保证原⼦性的？"></a><strong>Mysql</strong> 怎么保证原⼦性的？</h4><p>是利⽤Innodb的 undo log 。 </p>
+<p>undo log 名为回滚⽇志，是实现原⼦性的关键，当事务回滚时能够撤销所有已经成功执⾏ 的sql语句，他需要记录你要回滚的相应⽇志信息。 undo log 记录了回滚需要的信息，当事务执⾏失败或调⽤了 rollback，导致事务需要回滚，便可以利⽤undo log 中的信息将数据回滚到修改之前的样⼦。</p>
+<h4 id="Mysql-怎么保证持久性的？-redo-log"><a href="#Mysql-怎么保证持久性的？-redo-log" class="headerlink" title="Mysql 怎么保证持久性的？(redo log)"></a><strong>Mysql</strong> 怎么保证持久性的？(redo log)</h4><p>利⽤Innodb 的 redo log。 </p>
+<p>Mysql是先把磁盘上的数据加载到内存中，在内存中对数据进⾏修改，再刷回磁盘上。如果此时突然宕机，内存中的数据就会丢失。 </p>
+<p><strong>Q</strong>：怎么解决这个问题啊？ </p>
+<p>A：事务提交前直接把数据写⼊磁盘就⾏啊。</p>
+<p><strong>Q</strong>：这样做有什么问题吗？ </p>
+<p>A：只修改⼀个页⾯⾥的⼀个字节，就要将整个页⾯刷⼊磁盘，浪费资源。当做数据修改的时候，不仅在内存中操作，还会在 redo log 中记录这次操作。当事务提交的时候，会将 redo log ⽇志进⾏刷盘(redo log ⼀部分在内存中，⼀部分在磁盘上)。当数据库宕机重启的时候，会将 redo log 中的内容恢 复到数据库中，再根据 undo log 和 binlog 内容决定回滚数据还是提交数据。</p>
+<p><strong>Q</strong>：采⽤<strong>redo log</strong>的好处？</p>
+<p>A：好处就是将redo log进⾏刷盘⽐对数据页刷盘效率⾼，具体表现如下: redo log体积⼩，毕竟只记录了哪⼀页修改了啥，因此体积⼩，刷盘快。redo log是⼀直往末尾进⾏追加，属于顺序IO。效率显然⽐随机IO来的快。</p>
+<h4 id="Mysql-怎么保证隔离性的？-锁-和-MVCC-机制"><a href="#Mysql-怎么保证隔离性的？-锁-和-MVCC-机制" class="headerlink" title="Mysql 怎么保证隔离性的？(锁 和 MVCC 机制)"></a><strong>Mysql</strong> 怎么保证隔离性的？(锁 和 MVCC 机制)</h4><p>利⽤的是锁和 MVCC 机制</p>
+<p>MVCC,即多版本并发控制(Multi Version Concurrency Control)，⼀个⾏记录数据有多个版本对快照数据，这些快照数据在undo log中。<br>如果⼀个事务读取的⾏正在做 DELELE 或者 UPDATE 操作，读取操作不会等⾏上的锁释放，⽽是读取该⾏的快照版本。<br>MVCC 旨在控制多版本并发读写，早期版本只有读读之间可以并发，⽽读写，写读，写写操作都是阻塞的，引⼊ mvcc 后，只有写写操作是阻塞的。</p>
+<p>mysql的实现原理是在数据节点有两个字段列，trid，rollbackpointer。主要解决问题为在修改操作时，会加上⾏级锁，但上锁的开销较⼤，MVCC就是为了解决开销问题⽽存在，很多情况下，可以代替⾏级锁。实现原理是因为每个事务进⾏修改操作时，都会往 undo log 中写⼊内容，⽽历史版本可以通过前⾯的 trid 和 rollbackpointer 寻找到快照信息，具体读取哪个快照按隔离级别计算。</p>
+<h4 id="快照读在提交读和可重复读级别下有什么区别？"><a href="#快照读在提交读和可重复读级别下有什么区别？" class="headerlink" title="快照读在提交读和可重复读级别下有什么区别？"></a>快照读在提交读和可重复读级别下有什么区别？</h4><ul>
+<li><p>在RC级别下每次都是读取最新的快照版本</p>
+</li>
+<li><p>在RR级别下是事务开启时⽣成⼀个全局快照，后续的快照读都读取这个快照</p>
+</li>
+</ul>
+<p><strong>快照读（Snapshot Read）</strong></p>
+<ul>
+<li>MySQL 数据库，InnoDB 存储引擎，为了提⾼并发，使⽤ MVCC 机制，在并发事务时，通过读取数据⾏的历史数据版本，不加锁，来提⾼并发的⼀种不加锁⼀致性读（Consistent<br>Nonlocking Read）。</li>
+</ul>
+<p><strong>读提交（Read Committed）</strong></p>
+<ul>
+<li>数据库领域，事务隔离级别的⼀种，简称 RC，它解决“读脏”问题，保证读取到的数据⾏都是已提交事务写⼊的它可能存在“读幻影⾏”问题，同⼀个事务⾥，连续相同的 read 可能读到不同的结果集。</li>
+</ul>
+<p><strong>可重复读（Repeated Read）</strong></p>
+<ul>
+<li>数据库领域，事务隔离级别的⼀种，简称RR它不但解决“读脏”问题，还解决了“读幻影⾏”问题，同⼀个事务⾥，连续相同的read读到相同的结果集</li>
+</ul>
 <p><strong>并发事务带来的问题</strong></p>
 <ol>
 <li>脏读：简单来说就是一个事务对某数据进行了修改但是未提交，而另一个事务对此数据进行了访问并使用。相当于读到了“脏数据“</li>
@@ -677,7 +721,7 @@
 <li>解决方案：适配器（充电器）通过组合（也可以使用继承，但不推荐）的形式保存适配者（手机）的引用。同时适配器实现目标对象（电源）的方法（充电）。当用户要给访问目标方法时，就new一个适配器，然后将适配者传给适配器，通过适配器访问目标方法。 比如，用户要给手机充电时，先new一个充电器，然后把手机连上充电器（把手机对象传给充电器），然后充电器访问电源的充电方法。</li>
 <li>效果：解决了两个对象之间不兼容导致无法调用的问题。</li>
 </ul>
-<h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><h3 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h3><h4 id="进程和线程的区别"><a href="#进程和线程的区别" class="headerlink" title="进程和线程的区别"></a>进程和线程的区别</h4><p>这里通过JVM解释，JVM中有运行时数据区域，其中包括堆和方法区，两者是线程共享区域，而剩下的栈程序计数器以及本地方法栈是线程私有区域。一个进程中有多个线程，线程是进程划分的最小运行单位。最大的区别在于运行时进程是独立的，线程不一定。线程开销较小，但不利于资源的管理和保护，进程相反。</p>
+<h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><h3 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h3><h4 id="进程和线程的区别"><a href="#进程和线程的区别" class="headerlink" title="进程和线程的区别"></a>进程和线程的区别</h4><p>进程是程序的⼀次执⾏过程，是系统运⾏程序的基本单位，因此进程是动态的。系统运⾏⼀个程序即是⼀个进程从创建，运⾏到消亡的过程。<br>线程与进程相似，但线程是⼀个⽐进程更⼩的执⾏单位。⼀个进程在其执⾏的过程中可以产⽣多个线程。与进程不同的是同类的多个线程共享进程的堆和⽅法区资源，但每个线程有⾃⼰的程序计数器、虚拟机栈和本地⽅法栈。</p>
 <h4 id="进程的状态"><a href="#进程的状态" class="headerlink" title="进程的状态"></a>进程的状态</h4><p>一共有5种状态：</p>
 <ol>
 <li><strong>创建</strong>：进程被创建。</li>
@@ -694,7 +738,7 @@
 <li><strong>消息队列</strong>：消息队列是消息的链表,具有特定的格式,存放在内存中并由消息队列标识符标识。管道和消息队列的通信数据都是先进先出的原则。</li>
 <li><strong>信号量</strong>：信号量是一个计数器，用于多进程对共享数据的访问，信号量的意图在于进程间同步。这种通信方式主要用于解决与同步相关的问题并避免竞争条件。</li>
 <li><strong>共享内存</strong>：使得多个进程可以访问同一块内存空间，不同进程可以及时看到对方进程中对共享内存中数据的更新。这种方式需要依靠某种同步操作，如互斥锁和信号量等。可以说这是最有用的进程间通信方式。</li>
-<li><strong>套接字</strong>：此方法主要用于在客户端和服务器之间通过网络进行通信。套接字是支持TCP/IP的网络通信的基本操作单元。</li>
+<li><strong>套接字</strong>Socket：此方法主要用于在客户端和服务器之间通过网络进行通信。套接字是支持TCP/IP的网络通信的基本操作单元。</li>
 </ol>
 <h4 id="线程间的同步方式"><a href="#线程间的同步方式" class="headerlink" title="线程间的同步方式"></a>线程间的同步方式</h4><ol>
 <li>互斥量(Mutex)：采用互斥对象机制，只有拥有互斥对象的线程才有访问公共资源的权限。因为互斥对象只有一个，所以可以保证公共资源不会被多个线程同时访问。比如Java中的synchronized关键词和各种Lock都是这种机制。</li>
@@ -1042,7 +1086,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">64.1k</span>
+                        class="white-color">69.3k</span>
             
             
             

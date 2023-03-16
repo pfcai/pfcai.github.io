@@ -4,11 +4,11 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="字符串, pfcai-blog">
-    <meta name="description" content="反转字符串leetcode344
-编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 char[] 的形式给出。不要给另外的数组分配额外的空间，你必须原地修改输入数组、使用 O(1) 的额外空间解决这一问题。
-思路
-使用双指">
+    <meta name="keywords" content="Java基础, pfcai-blog">
+    <meta name="description" content="Java基础1、JVM、JDK、JREJRE：Java运行环境，包括JVM，但是不能创建新程序。
+JDK：Java开发工具包，功能最齐全。
+JVM：Java虚拟机。
+2、public、private、protected、defaultpub">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +20,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>字符串 | pfcai-blog</title>
+    <title>Java基础 | pfcai-blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -315,12 +315,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">字符串</h1>
+                    <h1 class="description center-align post-title">Java基础</h1>
                 </div>
             </div>
         </div>
@@ -344,8 +344,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-                                <span class="chip bg-color">字符串</span>
+                            <a href="/tags/Java/">
+                                <span class="chip bg-color">Java</span>
                             </a>
                         
                     </div>
@@ -356,8 +356,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="post-category">
-                                数据结构与算法
+                            <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" class="post-category">
+                                后端开发
                             </a>
                         
                     </div>
@@ -369,28 +369,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-11-21
+                    2023-03-16
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-11-21
+                    2023-03-16
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    103
+                    4.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    14 分
                 </div>
                 
 
@@ -413,12 +413,421 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="反转字符串"><a href="#反转字符串" class="headerlink" title="反转字符串"></a>反转字符串</h3><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/reverse-string/">leetcode344</a></p>
-<p>编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 char[] 的形式给出。不要给另外的数组分配额外的空间，你必须原地修改输入数组、使用 O(1) 的额外空间解决这一问题。</p>
-<p><strong>思路</strong></p>
-<p>使用双指针，从头和尾一次交换，比较简单。</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
+                <h3 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h3><h4 id="1、JVM、JDK、JRE"><a href="#1、JVM、JDK、JRE" class="headerlink" title="1、JVM、JDK、JRE"></a>1、JVM、JDK、JRE</h4><p>JRE：Java运行环境，包括JVM，但是不能创建新程序。</p>
+<p>JDK：Java开发工具包，功能最齐全。</p>
+<p>JVM：Java虚拟机。</p>
+<h4 id="2、public、private、protected、default"><a href="#2、public、private、protected、default" class="headerlink" title="2、public、private、protected、default"></a>2、public、private、protected、default</h4><p>public：一个源文件中只能有一个类是public。所修饰成员变量可在任何类中访问到。</p>
+<p>protected：受到该类所在的包作为保护。所修饰成员变量只能在同一包中访问。</p>
+<p>private：只能在当前类中被访问到。</p>
+<h4 id="3、final、finally、finalize"><a href="#3、final、finally、finalize" class="headerlink" title="3、final、finally、finalize"></a>3、final、finally、finalize</h4><p>final：修饰变量时必须初始化，成为常量。</p>
+<p>finally：常常与try catch搭配使用。附带的语句块一定会被执行，无论是否抛出异常。</p>
+<p>finalize：每一个对象都有的方法，一个对象只会被其调用一次，但调用不代表回收。</p>
+<h4 id="4、static"><a href="#4、static" class="headerlink" title="4、static"></a>4、static</h4><p>只有new对象之后，数据存储空间才会被分配，方法才能由外界调用。使用static，成员变量或方法可以在没有创建对象的时候使用。</p>
+<h4 id="5、面向对象三大特性"><a href="#5、面向对象三大特性" class="headerlink" title="5、面向对象三大特性"></a>5、面向对象三大特性</h4><p>封装：封装成抽象的类，对可信任的对象或类可以进行操作，对于不可信的进行隐藏。</p>
+<p>继承：可以使用现有类的所有功能，并在此基础上还可以进行拓展。</p>
+<p>多态：基于继承，指负累中定义的属性和方法被子类继承之后，可以具有不同的数据类型或表现不同的行为，使同一个属性在父类和子类中具有不同的含义。</p>
+<p>实现多态的3个必要条件：继承、重写、向上转型</p>
+<ul>
+<li>继承：必须存在继承关系的子类和父类</li>
+<li>重写：子类对父类中的方法重新ing一，调用方法时使用子类中的方法</li>
+<li>向上转型：将子类的引用赋给父类对象，只有这样引用才既可以调用父类的方法也可以调用子类方法。、</li>
+</ul>
+<h4 id="6、重写和重载的区别"><a href="#6、重写和重载的区别" class="headerlink" title="6、重写和重载的区别"></a>6、重写和重载的区别</h4><p>重写：运行时多态。发生在子类和父类之间，要求返回值和形参都不能改变。外壳不变，核心重写。两小(返回值类型、抛出异常)两同(方法名和参数列表)一大(访问权限)</p>
+<p>重载：编译时多态。同一类里面，方法名相同但参数不同。返回类型也可不同。常用的就是构造器的重载。</p>
+<h4 id="7、ArrayList"><a href="#7、ArrayList" class="headerlink" title="7、ArrayList"></a>7、ArrayList</h4><p>底层是一个<strong>Object【】</strong>数组。底层数组默认初始化容量为10。</p>
+<ol>
+<li>在jdk1.8中底层会先创建一个长度为0的数组。</li>
+<li>当第一次添加元素使用add方法时，会初始化为一个长度为10的数组。</li>
+</ol>
+<p>当容量使用完后会进行扩容</p>
+<ol>
+<li>会自动创建容量更大的数组，并将原数组中所有元素进行拷贝，导致效率低下。</li>
+<li>优化：使用构造方法提供一个初始化的容量。ArrayList(int capacity)/ensureCapacity(int capacity)。</li>
+</ol>
+<p>三个构造方法：</p>
+<ol>
+<li>ArrayList()：创建初始容量为0的空列表</li>
+<li>ArrayList(int capacity)：指定一个初始容量的空列</li>
+<li>ArrayList(Collection&lt;?extends E&gt;c)：创建一个包含指定集合中所有元素的列表。</li>
+</ol>
+<p>优点：</p>
+<ol>
+<li>向末尾添加元素时效率较高</li>
+<li>查询效率高</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>扩容会造成效率低下。</li>
+<li>数组无法存储大量数据。</li>
+<li>向中间位置添加元素需要移动元素，效率低下。</li>
+</ol>
+<h4 id="8、LinkList"><a href="#8、LinkList" class="headerlink" title="8、LinkList"></a>8、LinkList</h4><p>LinkedList底层是一个双向链表。</p>
+<p>优点：增删效率高。</p>
+<p>缺点：查询效率低。</p>
+<p>LInkedLIst可以调用get(index)返回链表第index个元素，但是每次查找需要从头节点开始。</p>
+<h5 id="ListIterator接口"><a href="#ListIterator接口" class="headerlink" title="ListIterator接口"></a>ListIterator接口</h5><ol>
+<li>LinkedList.add方法只能将数据添加到链表末尾。</li>
+<li>可以使用ListIterator接口的add方法添加元素到链表中间位置。<ol>
+<li>void add(E e)</li>
+<li>boolean hasNext()</li>
+<li>boolean hasPrevious()</li>
+<li>E next()</li>
+<li>int nextIndex()</li>
+<li>E previous()</li>
+<li>int previousIndex()</li>
+<li>void remove()</li>
+<li>void set(E e)</li>
+</ol>
+</li>
+<li>remove方法：<ul>
+<li>调用next后，删除的是迭代器左侧的元素。</li>
+<li>调用previous后，调用的是迭代器右侧的元素。</li>
+</ul>
+</li>
+</ol>
+<h4 id="9、Vector"><a href="#9、Vector" class="headerlink" title="9、Vector"></a>9、Vector</h4><p>底层为数组，初始容量为10。扩容后是原始容量的2倍。</p>
+<p>Vector是线程安全的，每个方法都使用了sychronized同步锁，效率低下。</p>
+<h4 id="10、泛型"><a href="#10、泛型" class="headerlink" title="10、泛型"></a>10、泛型</h4><p>好处：</p>
+<ol>
+<li>减少强制类型转换次数</li>
+<li>调用方法时更安全</li>
+<li>泛型只在编译时起作用</li>
+<li>在使用时没有指定泛型类型时默认使用Objext类型。</li>
+</ol>
+<h4 id="11、Set"><a href="#11、Set" class="headerlink" title="11、Set"></a>11、Set</h4><h5 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h5><p>无序（没有下标），不可重复</p>
+<h5 id="TreeSet"><a href="#TreeSet" class="headerlink" title="TreeSet"></a>TreeSet</h5><p>无序（没有下标），不可重复，可以排序。</p>
+<p>HashSet作为HashMap的key部分，TreeSet作为TreeMap的key部分。</p>
+<h4 id="12、Map"><a href="#12、Map" class="headerlink" title="12、Map"></a>12、Map</h4><ol>
+<li>Map和Collection没有继承关系</li>
+<li>Map以键值对的方式存储，key和value存储的都是对象的内存地址（引用）</li>
+</ol>
+<p>常见方法：</p>
+<ul>
+<li>Set<k> keySet()</k></li>
+<li>Collection<v> values()</v></li>
+<li>V put(key, value)</li>
+<li>V get(Object key)</li>
+<li>V remove (Object key)</li>
+<li>boolean isEmpty()</li>
+</ul>
+<p>遍历方法：</p>
+<ul>
+<li>第一类：先获取map的keySet，然后取出key对应的value。<ul>
+<li>通过foreach遍历ma p.keySet()，取出对应的value。</li>
+<li>通过迭代器迭代map.keySet(),取出对应的value。</li>
+</ul>
+</li>
+<li>第二类：调用map.entrySet()，获取entrySet，直接从中获取key和value<ul>
+<li>调用map.entrySet(),然后使用foreach遍历</li>
+<li>使用迭代器遍历。</li>
+</ul>
+</li>
+</ul>
+<h5 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h5><ol>
+<li>底层由数组实现</li>
+<li>数组中每个元素是一个单向链表<ul>
+<li>链表每个节点时Node&lt;k,v&gt;类型</li>
+</ul>
+</li>
+<li>同一个单链表中所有Node的hash值不一定一样，但对应的数组下标一定一样<ul>
+<li>数组下标是通过哈希函数计算出的</li>
+</ul>
+</li>
+<li>HashMap是数组和单链表的结合体<ul>
+<li>数组查询效率高但增删效率低</li>
+<li>单链表随机增删效率高，查询效率低</li>
+</ul>
+</li>
+<li>特点<ul>
+<li>无序、不可重复(通过equals方法保证的)</li>
+</ul>
+</li>
+</ol>
+<p>源码解读：</p>
+<ul>
+<li>初试默认容量为16<ul>
+<li>必须是2的2次幂，官方推荐</li>
+<li>需要达到散列均匀，提高几个的存取效率</li>
+</ul>
+</li>
+<li>默认加载因子0.75<ul>
+<li>数组达到容量的3/4开始扩容</li>
+</ul>
+</li>
+<li>单链表元素超过8个转变为红黑树；红黑树节点小于6转变为单链表</li>
+</ul>
+<p>put方法原理：</p>
+<ul>
+<li>先将key，value封装到Node对象中</li>
+<li>底层调用key的hashCode()计算hash值</li>
+<li>通过哈希算法，将hash值转换为数组下标<ul>
+<li>如果下标没有元素，直接将Node添加进来</li>
+<li>如果下标有单链表，将当前Node中的key与链表上每一个节点中的key进行equals比较<ul>
+<li>如果所有equals都返回false，则将Node添加至链表尾部</li>
+<li>如果其中一个返回了true，链表中对应节点的value将会被新Node中的value进行覆盖</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>注：</p>
+<ol>
+<li>HashMap允许key和value为null，但只能存在一个。</li>
+<li>HashTable中，key和value不允许为null。</li>
+</ol>
+<p>get方法原理：</p>
+<ul>
+<li>先调用key的hashCode()得到hash值</li>
+<li>通过哈希算法将hash值转换为数组下标</li>
+<li>通过数组下标定位位置<ul>
+<li>如果位置上没有元素，直接返回null</li>
+<li>位置上有单链表，此时会将当前Node中的key与链表上每一个节点中的key进行equals比较<ul>
+<li>所有equals返回为false，get方法返回null</li>
+<li>有一个equals为true，get方法返回这个节点的value。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>同时重写hashCode()和equals()方法。</p>
+<ul>
+<li>重写hashCode时要注意需要达到散列分布均匀</li>
+</ul>
+<h5 id="TreeMap"><a href="#TreeMap" class="headerlink" title="TreeMap"></a>TreeMap</h5><p>TreeSet/TreeMap是自平衡二叉树，迭代器采用的是中序遍历。</p>
+<p>特点：无序，不可重复，但可以排序。</p>
+<p>排序规则：</p>
+<ul>
+<li>TreeSet/TreeMap中key可以自动对String或8大数据类型的包装类型进行排序</li>
+<li>无法对自定义类型进行排序，原因是没有实现java.lang.Comparable接口，解决自定义类型的排序有两种方式。<ul>
+<li>实现java.lang.Comparable接口，重写compareTo方法。</li>
+<li>选择TreeSet/TreeMap带比较器参数的构造器，重写比较器中的compare方法。</li>
+</ul>
+</li>
+</ul>
+<h4 id="13、String"><a href="#13、String" class="headerlink" title="13、String"></a>13、String</h4><ul>
+<li>string类型不可变，使用final修饰</li>
+<li>使用双引号的字符串都是直接存储在方法去的字符串常量池中</li>
+</ul>
+<p>StringBuilder：底层数组没有用dinal修饰，可变；线程不安全，效率高</p>
+<p>StringBuffer：也没有用final修饰，可变；线程安全，效率低。</p>
+<h3 id="Java集合"><a href="#Java集合" class="headerlink" title="Java集合"></a>Java集合</h3><p>三个层次：最上层的接口、中间的抽象类和最后的实现类。</p>
+<p>接口：Collection、List、Set、Map，以及辅助性质的接口Iterator、LinkIterator、Comparator</p>
+<p>抽象类：实现大多数接口的方法，继承类只需要根据自身特性重写部分方法或者实现接口方法</p>
+<p>算法：ArrayList、LinkedList、HashMap、HashSet等。</p>
+<p>Java集合的基本接口是Collection和Map接口，所有实现类都是这两个接口派生下来的。Collection一次存一个元素是单列集合。Map一次存一对元素，是双列集合。</p>
+<h4 id="Collection接口"><a href="#Collection接口" class="headerlink" title="Collection接口"></a>Collection接口</h4><p>自身接口：</p>
+<ul>
+<li>增<ul>
+<li>add(E)</li>
+<li>addAll(Collection)</li>
+</ul>
+</li>
+<li>删<ul>
+<li>remove(Object)</li>
+<li>removeAll(Collection)</li>
+<li>removeIf(Predicate)</li>
+<li>clear()</li>
+<li>retainAll(Collection)</li>
+</ul>
+</li>
+<li>获取<ul>
+<li>size()</li>
+</ul>
+</li>
+<li>判断<ul>
+<li>isEmpty()</li>
+<li>contains(Object)</li>
+<li>containsAll(Collection)</li>
+<li>Equals()</li>
+</ul>
+</li>
+<li>方法<ul>
+<li>hashCode()</li>
+<li>toArray()</li>
+</ul>
+</li>
+<li>流<ul>
+<li>stream()</li>
+<li>paralleIStream()</li>
+</ul>
+</li>
+</ul>
+<p>继承Iterable接口：</p>
+<ul>
+<li>Iterator接口<ul>
+<li>hasNext()</li>
+<li>next()</li>
+<li>remove()</li>
+<li>forEachRemaining()</li>
+</ul>
+</li>
+<li>forEach</li>
+<li>spliterator</li>
+</ul>
+<p>上面的方法在实现类中都必须提供，为了简化操作Java类提供了一个AbstractCollection。其又派生了AbstractList、AbstractSet等。</p>
+<p>Java中常用的for each与发烫可以与任何实现了Iterable接口的对象一起工作。Iterable包含了Iterator对象，可以调用iterator()方法，返回一个Iterator对象，这就是一个常用的迭代器。</p>
+<p>Iterator()功能简单，只能单向移动。</p>
+<ol>
+<li>调用iterator()方法返回一个Iterator对象。</li>
+<li>第一次调用next()返回序列的第一个元素。此后每调用一个next会返回下一个元素，在调用之前最好调用hasNext方法。</li>
+<li>remove删除上一次next返回的对象，只能在next之后使用。</li>
+</ol>
+<h4 id="List接口"><a href="#List接口" class="headerlink" title="List接口"></a>List接口</h4><p>List全部继承自AbstractList，是一个有序集合，允许重复元素。</p>
+<p>List常用方法：</p>
+<ul>
+<li>增：add、addAll</li>
+<li>删：remove、removeAll</li>
+<li>改：set</li>
+<li>获取：get、subList、listIterator、indexOf、size</li>
+<li>判断：isEmpty、contains</li>
+</ul>
+<p>其又特殊的迭代器接口ListIterator。是双向的，增加了previous()和hasPrevious()用来反向遍历。只能List使用，其他接口无法使用。</p>
+<p>ListIterator中有：add、set、hasPrevious、previous、nextIndex、previousIndex。</p>
+<h4 id="Set接口"><a href="#Set接口" class="headerlink" title="Set接口"></a>Set接口</h4><p>Set全部继承自AbstractSet，是无序集合，不允许重复。实现不允许重复就需要重写hashCode和equals方法。</p>
+<p>Set常用方法：</p>
+<ul>
+<li>增：add、addAll</li>
+<li>删：remove、removeAll、clear、retainAll</li>
+<li>获取：size、toArray</li>
+<li>判断：isEmpty、contains、containsAll</li>
+<li>区别List：hashcode、equals</li>
+</ul>
+<h4 id="Queue接口"><a href="#Queue接口" class="headerlink" title="Queue接口"></a>Queue接口</h4><p>Queue常用方法：</p>
+<ul>
+<li>添加：add、offer</li>
+<li>返回头：element、peek</li>
+<li>删除：remove、poll</li>
+</ul>
+<p>Deque接口继承自Queue，在Deque基础上细化，可以选择从头到尾操作。</p>
+<p>Deque常用方法：</p>
+<ul>
+<li>添加：addFirst、addlast、offerFirst、offerLast</li>
+<li>删除：removeFirst、removeLast、pollFirst、pollLast、removeFirstOccurrence、removeLastOccurrence</li>
+<li>返回元素：getFirst、getLast、peekFirst、peekLast</li>
+</ul>
+<h4 id="Map接口"><a href="#Map接口" class="headerlink" title="Map接口"></a>Map接口</h4><p>Map是顶层接口，sortedMap接口提供排序选项。所有实现类都派生于AbstractMap。其中有实现了排序、查找、替换、复制、数组工具类Arrays等很多功能的方法。</p>
+<h3 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h3><p>接口概念：</p>
+<ol>
+<li>接口中所有方法自动为public。</li>
+<li>可以定义常量</li>
+<li>没有实例字段</li>
+</ol>
+<p>接口属性：</p>
+<ol>
+<li>可以使用instanceof检查一个对象是否实现了某个接口</li>
+<li>接口中的字段总是 public static final</li>
+<li>多继承可以通过接口实现</li>
+</ol>
+<p><strong>接口和抽象类的异同</strong></p>
+<ul>
+<li>同：1. 都允许进行方法的定义，不需要具体实现。2. 都允许被继承</li>
+<li>异：1. 抽象级别不同。接口中只允许方法的定义不允许方法的实现，抽象类中可以进行方法的实现。2. 使用的关键词不同。3. 接口中的变量都是公共的静态常量，抽象类中的变量可以是普通变量。</li>
+</ul>
+<h3 id="类加载机制"><a href="#类加载机制" class="headerlink" title="类加载机制"></a>类加载机制</h3><p>类的数据从class文件加载到内存，并对数据进行校验、转换解析和初始化，最终形成Java类型。</p>
+<p>类的生命周期：</p>
+<ul>
+<li>加载：<ul>
+<li>通过类全限定名获取定义此类的二进制字节流</li>
+<li>将字节流的静态存储结构转换为方法区运行时的数据结构</li>
+<li>在内存中生成一个代表类的java.lang.class对象，作为类各种数据的访问入口</li>
+</ul>
+</li>
+<li>验证：<ul>
+<li>文件格式验证</li>
+<li>元数据验证</li>
+<li>字节码验证</li>
+<li>符号引用验证</li>
+</ul>
+</li>
+<li>准备：为类中静态变量分配内存并设置类变量初始值</li>
+<li>解析：Java虚拟机将常量池内的符号引用替换为直接引用的过程</li>
+<li>初始化：执行类构造器方法的过程</li>
+<li>使用</li>
+<li>卸载</li>
+</ul>
+<p>双亲委派模型：一个类加载器收到类加载的请求，首先不会自己去尝试加载类，而是把请求委派给父类加载器去完成，每一层的类加载器都是如此，最终都传送到最顶层的启动类加载器。只有当父加载器反馈无法完成请求时，子加载器才会自己处理。</p>
+<p>分为4层：</p>
+<ol>
+<li>启动类加载器 Bootstrap class loader</li>
+<li>扩展类加载器 Extension class loader</li>
+<li>应用类加载器 Application class loader</li>
+<li>自定义加载器</li>
+</ol>
+<h3 id="Java并发"><a href="#Java并发" class="headerlink" title="Java并发"></a>Java并发</h3><p>Synchronized</p>
+<p><strong>作用</strong>：通过使用内置锁实现对共享变量的同步操作，结局共享变量操作的原子性，保证其他线程对共享变量的可见性、有序性，从而确保并发情况下的线程安全。</p>
+<p>用法：</p>
+<ol>
+<li>普通同步方法</li>
+<li>静态同步方法</li>
+<li>同步代码块</li>
+</ol>
+<p><strong>内置锁</strong>：Java中每个对象都有一把锁，防止在对象头中，用于记录当前对象被哪个线程池游。一个对象在堆中是由对象头、实例数据、填充构成。</p>
+<p><strong>内置锁的实现</strong>：使用monitorEntry和monitorExit两个字节码指令，实质是操作系统中的mutex lock实现。</p>
+<p><strong>无锁</strong>：不锁资源，多个线程中有一个能修改资源成功，其他线程会重试</p>
+<p><strong>偏向锁</strong>：一段同步代码、共享资源一直被一个线程访问，那么该线程自动获取锁，减少获取锁的代价</p>
+<p><strong>轻量级锁</strong>：当锁是偏向锁，被另外的线程访问就会升级为轻量级锁，其他线程会通过自旋的形式尝试获取锁，不会阻塞。</p>
+<p><strong>重量级锁</strong>：互斥锁，设计CPU的介入。</p>
+<h3 id="JVN"><a href="#JVN" class="headerlink" title="JVN"></a>JVN</h3><p>运行时数据区包含：</p>
+<ul>
+<li>共享<ul>
+<li>方法区</li>
+<li>堆</li>
+</ul>
+</li>
+<li>私有<ul>
+<li>本地方法栈</li>
+<li>程序计数器</li>
+<li>虚拟机栈</li>
+</ul>
+</li>
+</ul>
+<p>私有：</p>
+<ul>
+<li><p><strong>程序计数器</strong>：记录正在执行的虚拟机字节码指令的地址。字节码解释器工作时通过改变计数器的值获取下一条待执行指令的地址。多线程下每个线程都需要有一个独立的计数器，方便在切换时恢复到正确的执行位置。</p>
+</li>
+<li><p><strong>虚拟机栈</strong>：由很多个栈帧组合，每个方法执行时，虚拟机会同步创建一个栈，方法从调用到执行完毕对应的栈帧从入栈到出栈的过程。</p>
+</li>
+<li><p><strong>局部变量表</strong>：存放编译期间可知的各种虚拟机基本数据类型、对象引用等。</p>
+</li>
+<li><p><strong>本地方法栈</strong>：虚拟机使用到的本地方法native方法服务</p>
+</li>
+</ul>
+<p>公有</p>
+<ul>
+<li><strong>堆</strong>：虚拟机启动时创建，是垃圾收集器管理的内存区域，这里是GC的发生地</li>
+<li><strong>方法区</strong>：存储已被虚拟机加载的类型信息、常量、静态变量、编译器编译后的代码缓存等数据</li>
+<li><strong>运行时常量池</strong>：包括类的描述信息和常量池表。运行时常量池具有动态性，运行期间可以放入新的常量</li>
+</ul>
+<p><strong>对象的创建：</strong></p>
+<ol>
+<li>类加载检查</li>
+<li>分配内存</li>
+<li>初始化内存空间</li>
+<li>进行对象头的设置</li>
+<li>执行构造函数</li>
+</ol>
+<p><strong>对象的结构</strong></p>
+<ol>
+<li>对象头：<ul>
+<li>对象自身的运行时数据，如：Mark word、hash code、GC年龄</li>
+<li>类型指针：对象指向元数据的指针，通过这个确定对象是哪个类的实例</li>
+</ul>
+</li>
+<li>实例数据</li>
+<li>padding</li>
+</ol>
+<p><strong>对象访问定位</strong></p>
+<p>Java通过栈上的reference数据来操作堆上的具体对象</p>
+<ul>
+<li>句柄方式：堆中分配一块内存作为句柄池，reference储存句柄池的地址，句柄中包含了指向对象实例数据的指针和对象类型数据的指针。<ul>
+<li>稳定，对象被移动时，只会改变句柄中的实例数据指针，不需要修改reference本身</li>
+</ul>
+</li>
+<li>直接指针：reference存放的是对象地址<ul>
+<li>访问速度快，减少一次指针定位的开销</li>
+</ul>
+</li>
+</ul>
 
                 
             </div>
@@ -433,8 +842,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-                                    <span class="chip bg-color">字符串</span>
+                                <a href="/tags/Java/">
+                                    <span class="chip bg-color">Java</span>
                                 </a>
                             
                         </div>
@@ -480,9 +889,60 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2023/03/16/java-ji-chu/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Java基础">
+                        
+                        <span class="card-title">Java基础</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-03-16
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" class="post-category">
+                                    后端开发
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Java/">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2023/03/09/acm-mo-shi-shu-ru-shu-chu-c/">
                     <div class="card-image">
@@ -500,9 +960,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-03-09
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-03-09
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -520,55 +980,6 @@
                     
                     <a href="/tags/ACM/">
                         <span class="chip bg-color">ACM</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2022/11/20/java-web/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="Java Web">
-                        
-                        <span class="card-title">Java Web</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-11-20
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/" class="post-category">
-                                    后端开发
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Java/">
-                        <span class="chip bg-color">Java</span>
                     </a>
                     
                 </div>
