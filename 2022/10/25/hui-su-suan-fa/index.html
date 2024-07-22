@@ -55,7 +55,7 @@
 
 <meta name="generator" content="Hexo 5.4.2">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+</head>
 
 
 <body>
@@ -437,18 +437,18 @@
 </li>
 </ol>
 <p>那么可以写出总体的框架为:</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">void backtracking(参数) {
-    if (终止条件) {
-        存放结果;
-        return;
-    }
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">void</span> <span class="token function">backtracking</span><span class="token punctuation">(</span>参数<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>终止条件<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        存放结果<span class="token punctuation">;</span>
+        <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    for (选择：本层集合中元素（树中节点孩子的数量就是集合的大小）) {
-        处理节点;
-        backtracking(路径，选择列表); // 递归
+    <span class="token keyword">for</span> <span class="token punctuation">(</span>选择：本层集合中元素（树中节点孩子的数量就是集合的大小）<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        处理节点<span class="token punctuation">;</span>
+        <span class="token function">backtracking</span><span class="token punctuation">(</span>路径，选择列表<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 递归</span>
         回溯，撤销处理结果
-    }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="组合问题"><a href="#组合问题" class="headerlink" title="组合问题"></a>组合问题</h2><h3 id="组合1"><a href="#组合1" class="headerlink" title="组合1"></a>组合1</h3><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/combinations/">力扣题目链接</a><br>给定两个整数 n 和 k，返回 1 … n 中所有可能的 k 个数的组合。<br>示例:<br>输入: n = 4, k = 2<br>输出:<br>[<br>[2,4],<br>[3,4],<br>[2,3],<br>[1,2],<br>[1,3],<br>[1,4],<br>]</p>
 <h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>那么参照上面的树，这道题的解题思路如下图：</p>
@@ -680,44 +680,44 @@ public:
 <h4 id="思路-4"><a href="#思路-4" class="headerlink" title="思路"></a>思路</h4><p><strong>本题的难点在于：集合（数组candidates）有重复元素，但还不能有重复的组合</strong>。所以需要去重。<strong>去重，其实就是使用过的元素不能重复选取。</strong><br>组合问题可以抽象为树形结构，那么“使用过”在这个树形结构上是有两个维度的，一个维度是同一树枝上使用过，一个维度是同一树层上使用过。回看一下题目，元素在同一个组合内是可以重复的，怎么重复都没事，但两个组合不能相同。<strong>所以去重的是同一树层上的“使用过”，同一树枝上的都是一个组合里的元素，不用去重</strong>。<br>实现去重我们要在for循环里去实现。我们使用startIndex去记录下一层for循环的起始位置，那么当i &gt; startIndex的时候说明遍历到了树同层的下一个元素，这个时候再判断一下i - 1和i的元素值是否相同，相同则说明元素重复，不同则继续纵向遍历。<strong>还有一点是要对数组进行排序</strong>。</p>
 <p>另一种方式是使用一个used数组去判断是否使用过，当c【i-1】==c【i】并且used【i-1】==false，说明同一层的前一个树枝已经使用过这个元素了，直接continue。</p>
 <p>记住去重需要先进行排序，确保相同的元素相邻。</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">class Solution {
-public:
-    vector&lt;vector&lt;int&gt; &gt; result;
-    vector&lt;int&gt; path;
-    void backtracking (vector&lt;int&gt;&amp; candidates, int target, int sum, int startIndex, vector&lt;bool&gt;&amp; used) {
-        if (sum &gt; target) return;
-        if (sum == target) {
-            result.push_back(path);
-            return;
-        }
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    vector<span class="token generics"><span class="token punctuation">&lt;</span>vector<span class="token punctuation">&lt;</span><span class="token keyword">int</span><span class="token punctuation">&gt;</span> <span class="token punctuation">&gt;</span></span> result<span class="token punctuation">;</span>
+    vector<span class="token generics"><span class="token punctuation">&lt;</span><span class="token keyword">int</span><span class="token punctuation">&gt;</span></span> path<span class="token punctuation">;</span>
+    <span class="token keyword">void</span> backtracking <span class="token punctuation">(</span>vector<span class="token generics"><span class="token punctuation">&lt;</span><span class="token keyword">int</span><span class="token punctuation">&gt;</span></span><span class="token operator">&amp;</span> candidates<span class="token punctuation">,</span> <span class="token keyword">int</span> target<span class="token punctuation">,</span> <span class="token keyword">int</span> sum<span class="token punctuation">,</span> <span class="token keyword">int</span> startIndex<span class="token punctuation">,</span> vector<span class="token generics"><span class="token punctuation">&lt;</span>bool<span class="token punctuation">&gt;</span></span><span class="token operator">&amp;</span> used<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>sum <span class="token operator">&gt;</span> target<span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>sum <span class="token operator">==</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            result<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        for (int i = startIndex; i &lt; candidates.size(); i++) {
-            // used[i - 1] == true，说明同一树枝candidates[i - 1]使用过
-            // used[i - 1] == false，说明同一树层candidates[i - 1]使用过
-            // 要对同一树层使用过的元素进行跳过
-            if (i &gt; 0 &amp;&amp; candidates[i] == candidates[i - 1] &amp;&amp; used[i - 1] == false) continue;
-            //可以使用startIndex去重
-            // if (i &gt; startIndex &amp;&amp; candidates[i] == candidates[i - 1]) continue;
-            sum += candidates[i];
-            used[i] = true;
-            path.push_back(candidates[i]);
-            //每个数字在每个组合中只能使用一次
-            backtracking(candidates, target, sum, i + 1, used);
-            used[i] = false;
-            path.pop_back();
-            sum -= candidates[i];
-        }
-    }
-    vector&lt;vector&lt;int&gt;&gt; combinationSum2(vector&lt;int&gt;&amp; candidates, int target) {
-        vector&lt;bool&gt; used(candidates.size(), false);
-        result.clear();
-        path.clear();
-        //去重需要先进行排序
-        sort(candidates.begin(), candidates.end());
-        backtracking(candidates, target, 0, 0, used);
-        return result;
-    }
-};
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> startIndex<span class="token punctuation">;</span> i <span class="token operator">&lt;</span> candidates<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// used[i - 1] == true，说明同一树枝candidates[i - 1]使用过</span>
+            <span class="token comment">// used[i - 1] == false，说明同一树层candidates[i - 1]使用过</span>
+            <span class="token comment">// 要对同一树层使用过的元素进行跳过</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> candidates<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> candidates<span class="token punctuation">[</span>i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> used<span class="token punctuation">[</span>i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token boolean">false</span><span class="token punctuation">)</span> <span class="token keyword">continue</span><span class="token punctuation">;</span>
+            <span class="token comment">//可以使用startIndex去重</span>
+            <span class="token comment">// if (i &gt; startIndex &amp;&amp; candidates[i] == candidates[i - 1]) continue;</span>
+            sum <span class="token operator">+=</span> candidates<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            used<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+            path<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span>candidates<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment">//每个数字在每个组合中只能使用一次</span>
+            <span class="token function">backtracking</span><span class="token punctuation">(</span>candidates<span class="token punctuation">,</span> target<span class="token punctuation">,</span> sum<span class="token punctuation">,</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> used<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            used<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+            path<span class="token punctuation">.</span><span class="token function">pop_back</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            sum <span class="token operator">-=</span> candidates<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    vector<span class="token generics"><span class="token punctuation">&lt;</span>vector<span class="token punctuation">&lt;</span><span class="token keyword">int</span><span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span></span> <span class="token function">combinationSum2</span><span class="token punctuation">(</span>vector<span class="token generics"><span class="token punctuation">&lt;</span><span class="token keyword">int</span><span class="token punctuation">&gt;</span></span><span class="token operator">&amp;</span> candidates<span class="token punctuation">,</span> <span class="token keyword">int</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        vector<span class="token generics"><span class="token punctuation">&lt;</span>bool<span class="token punctuation">&gt;</span></span> <span class="token function">used</span><span class="token punctuation">(</span>candidates<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        result<span class="token punctuation">.</span><span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        path<span class="token punctuation">.</span><span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">//去重需要先进行排序</span>
+        <span class="token function">sort</span><span class="token punctuation">(</span>candidates<span class="token punctuation">.</span><span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> candidates<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">backtracking</span><span class="token punctuation">(</span>candidates<span class="token punctuation">,</span> target<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> used<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <hr>
@@ -978,39 +978,39 @@ public:
 <p>需要使用一个哈希表用来查看值在同一层是否被使用过。然后判断一下大小。</p>
 </li>
 </ol>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">class Solution {
-public:
-    vector&lt;vector&lt;int&gt;&gt; result;
-    vector&lt;int&gt; path;
-    void backtracking(vector&lt;int&gt;&amp; nums, int startIndex) {
-        //题目要求子集长度大于2就是结果
-        if (path.size() &gt; 1) {
-            result.push_back(path);
-            //要记录的是所有数组哪元素，如果return说明path中有2个元素就返回
-            //return;
-        }
-        //使用set进行同层去重
-        unordered_set&lt;int&gt; used;
-        for (int i = startIndex; i &lt; nums.size(); i++) {
-          	//注意这里判断的符号
-            if (!path.empty() &amp;&amp; nums[i] &lt; path.back() || used.find(nums[i]) != used.end()) {
-                continue;
-            }
-            used.insert(nums[i]);
-            path.push_back(nums[i]);
-            backtracking(nums, i + 1);
-            //used只记录了本层中的使用情况，当递归到下一个深度时就会重新生成一个set，所以这里不需要处理
-            //used.erase(nums[i]);
-            path.pop_back();
-        }
-    }
-    vector&lt;vector&lt;int&gt;&gt; findSubsequences(vector&lt;int&gt;&amp; nums) {
-        result.clear();
-        path.clear();
-        backtracking(nums, 0);
-        return result;
-    }
-};<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    vector<span class="token generics"><span class="token punctuation">&lt;</span>vector<span class="token punctuation">&lt;</span><span class="token keyword">int</span><span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span></span> result<span class="token punctuation">;</span>
+    vector<span class="token generics"><span class="token punctuation">&lt;</span><span class="token keyword">int</span><span class="token punctuation">&gt;</span></span> path<span class="token punctuation">;</span>
+    <span class="token keyword">void</span> <span class="token function">backtracking</span><span class="token punctuation">(</span>vector<span class="token generics"><span class="token punctuation">&lt;</span><span class="token keyword">int</span><span class="token punctuation">&gt;</span></span><span class="token operator">&amp;</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> startIndex<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">//题目要求子集长度大于2就是结果</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>path<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            result<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment">//要记录的是所有数组哪元素，如果return说明path中有2个元素就返回</span>
+            <span class="token comment">//return;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">//使用set进行同层去重</span>
+        unordered_set<span class="token generics"><span class="token punctuation">&lt;</span><span class="token keyword">int</span><span class="token punctuation">&gt;</span></span> used<span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> startIndex<span class="token punctuation">;</span> i <span class="token operator">&lt;</span> nums<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          	<span class="token comment">//注意这里判断的符号</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>path<span class="token punctuation">.</span><span class="token function">empty</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;</span> path<span class="token punctuation">.</span><span class="token function">back</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">||</span> used<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">!=</span> used<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">continue</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            used<span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            path<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">backtracking</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment">//used只记录了本层中的使用情况，当递归到下一个深度时就会重新生成一个set，所以这里不需要处理</span>
+            <span class="token comment">//used.erase(nums[i]);</span>
+            path<span class="token punctuation">.</span><span class="token function">pop_back</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    vector<span class="token generics"><span class="token punctuation">&lt;</span>vector<span class="token punctuation">&lt;</span><span class="token keyword">int</span><span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span></span> <span class="token function">findSubsequences</span><span class="token punctuation">(</span>vector<span class="token generics"><span class="token punctuation">&lt;</span><span class="token keyword">int</span><span class="token punctuation">&gt;</span></span><span class="token operator">&amp;</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        result<span class="token punctuation">.</span><span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        path<span class="token punctuation">.</span><span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">backtracking</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="排列问题"><a href="#排列问题" class="headerlink" title="排列问题"></a>排列问题</h2><h3 id="全排列"><a href="#全排列" class="headerlink" title="全排列"></a>全排列</h3><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/permutations/">力扣题目链接(opens new window)</a></p>
 <p>给定一个不含重复数字的数组 <code>nums</code> ，返回其 <em>所有可能的全排列</em> 。你可以 <strong>按任意顺序</strong> 返回答案。</p>
@@ -1575,7 +1575,7 @@ public:
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">69.3k</span>
+                        class="white-color">75.1k</span>
             
             
             

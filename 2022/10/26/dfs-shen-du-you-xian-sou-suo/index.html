@@ -52,7 +52,7 @@
 
 <meta name="generator" content="Hexo 5.4.2">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+</head>
 
 
 <body>
@@ -427,17 +427,17 @@
 </li>
 </ol>
 <h3 id="DFS模版"><a href="#DFS模版" class="headerlink" title="DFS模版"></a>DFS模版</h3><p>正是因为dfs搜索可一个方向，并需要回溯，所以用递归的方式来实现是最方便的。所以借鉴回溯的三部曲，这里给出dfs的代码框架：</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">void dfs(参数) {
-  if (终止条件) {
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">void</span> <span class="token function">dfs</span><span class="token punctuation">(</span>参数<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>终止条件<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     收获结果；
-    return；
-  }
-  for (选择：本节点所有邻接节点) {
-    处理节点;
-    dfs(图， 选择的节点);//递归
+    <span class="token keyword">return</span>；
+  <span class="token punctuation">}</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span>选择：本节点所有邻接节点<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    处理节点<span class="token punctuation">;</span>
+    <span class="token function">dfs</span><span class="token punctuation">(</span>图， 选择的节点<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//递归</span>
     回溯，撤销处理结果
-  }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="DFS三步曲"><a href="#DFS三步曲" class="headerlink" title="DFS三步曲"></a>DFS三步曲</h3><ol>
 <li><p>确认递归函数和参数</p>
@@ -451,27 +451,27 @@
 </li>
 </ol>
 <h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>这里举<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/all-paths-from-source-to-target/">Leetcode797.所有可能的路径</a>作为例题写一下代码。</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">List&lt;Integer&gt; path = new ArrayList&lt;&gt;();
-List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;();
-public List&lt;List&lt;integer&gt;&gt; allPathsSourceTarget(int[][] graph) {
-  path.add(0);//每条路径都是从0开始的
-  dfs(graph, 0);
-  return res;
-}
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Integer</span><span class="token punctuation">&gt;</span></span> path <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">List</span><span class="token punctuation">&lt;</span><span class="token class-name">Integer</span><span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span></span> res <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">public</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">List</span><span class="token punctuation">&lt;</span>integer<span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span></span> <span class="token function">allPathsSourceTarget</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> graph<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  path<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//每条路径都是从0开始的</span>
+  <span class="token function">dfs</span><span class="token punctuation">(</span>graph<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-public void dfs(int[][] graph, int current) {
-  //终止条件
-  if (current == graph.length - 1) {
-    res.add(new ArrayList&lt;&gt;(path));//收获结果
-    return;
-  }
-  //处理搜索节点路径
-  for (int i = 0; i &lt; graph[current].length; i++) {
-    path.add(graph[x][i]);
-    dfs(graph, graph[x][i]);//去找和graph[x][i]节点相邻的节点
-    path.remove(path.size() - 1);//回溯，取消操作
-  }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">dfs</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> graph<span class="token punctuation">,</span> <span class="token keyword">int</span> current<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">//终止条件</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>current <span class="token operator">==</span> graph<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    res<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//收获结果</span>
+    <span class="token keyword">return</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">//处理搜索节点路径</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> graph<span class="token punctuation">[</span>current<span class="token punctuation">]</span><span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    path<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>graph<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">dfs</span><span class="token punctuation">(</span>graph<span class="token punctuation">,</span> graph<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//去找和graph[x][i]节点相邻的节点</span>
+    path<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//回溯，取消操作</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h2 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h2><p>广搜（bfs）是一圈一圈的搜索过程，在二叉树中的表现就是层序遍历。</p>
 <h3 id="广搜的使用场景"><a href="#广搜的使用场景" class="headerlink" title="广搜的使用场景"></a>广搜的使用场景</h3><p>问最短、最少之类的问题，一般要想到BFS，BFS搜索是逐层搜索，达到本层时所花费的value值是一样的，由于BFS借助队列实现，而队列有先进先出的特性，所以当找到结果时，是从上一层继承下来的，一定是当前问题的最少花费。求最短路问题时，优先用bfs，因为dfs需要遍历所有情况（此处思考一下为什么）才能找到最短路（spfa算法正是借助bfs来实现的）</p>
@@ -489,42 +489,42 @@ while(!q.empty()){
 
 
 
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">int[][] dir ={{0, 1}, {1, 0},{-1, 0},{ 0, -1}};
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> dir <span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token punctuation">{</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
 
-public int numIslands(char[][] grid) {
-        int count = 0;
-        boolean[][] visited = new boolean[grid.length][grid[0].length];
-        for (int i = 0; i &lt; grid.length; i++) {
-            for (int j = 0; j &lt; grid[0].length; j++) {
-                if (grid[i][j] == '1') {
-                    bfs(grid, i, j, visited);
-                    count++;
-                }
-            }
-        }
-        return count;
-    }
+<span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">numIslands</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> grid<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">boolean</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> visited <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">boolean</span><span class="token punctuation">[</span>grid<span class="token punctuation">.</span>length<span class="token punctuation">]</span><span class="token punctuation">[</span>grid<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>length<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> grid<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> grid<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>length<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>grid<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'1'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token function">bfs</span><span class="token punctuation">(</span>grid<span class="token punctuation">,</span> i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> visited<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    count<span class="token operator">++</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> count<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-public void bfs(char[][] grid, int x, int y, boolean[][] visited) {
-        Queue&lt;int[]&gt; que = new LinkedList&lt;&gt;();
-        que.add(new int[]{x,y});
-        visited[x][y] = true;
-        while (!que.isEmpty()) {
-            int[] temp = que.remove();
-            int curX = temp[0];
-            int curY = temp[1];
-            for (int i = 0; i &lt; 4; i++) {
-                int nextX = curX + dir[i][0];
-                int nextY = curY + dir[i][1];
-                if (nextX &lt; 0 || nextX &gt;= grid.length || nextY &lt; 0 || nextY &gt;= grid[0].length) {
-                    if(!visited[nextX][nextY] &amp;&amp; grid[nextX][nextY] == '1') {
-                        que.add(new int[]{nextX, nextY});
-                        visited[nextX][nextY] = true;//放入队列立马将访问状态置为true
-                    }
-                }
-            }
-        }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">bfs</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> grid<span class="token punctuation">,</span> <span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">,</span> <span class="token keyword">boolean</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> visited<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">Queue</span><span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">&gt;</span> que <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LinkedList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        que<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span>x<span class="token punctuation">,</span>y<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        visited<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">[</span>y<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>que<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> temp <span class="token operator">=</span> que<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">int</span> curX <span class="token operator">=</span> temp<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token keyword">int</span> curY <span class="token operator">=</span> temp<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">4</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">int</span> nextX <span class="token operator">=</span> curX <span class="token operator">+</span> dir<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+                <span class="token keyword">int</span> nextY <span class="token operator">=</span> curY <span class="token operator">+</span> dir<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>nextX <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">||</span> nextX <span class="token operator">&gt;=</span> grid<span class="token punctuation">.</span>length <span class="token operator">||</span> nextY <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">||</span> nextY <span class="token operator">&gt;=</span> grid<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>visited<span class="token punctuation">[</span>nextX<span class="token punctuation">]</span><span class="token punctuation">[</span>nextY<span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> grid<span class="token punctuation">[</span>nextX<span class="token punctuation">]</span><span class="token punctuation">[</span>nextY<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'1'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        que<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span>nextX<span class="token punctuation">,</span> nextY<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        visited<span class="token punctuation">[</span>nextX<span class="token punctuation">]</span><span class="token punctuation">[</span>nextY<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span><span class="token comment">//放入队列立马将访问状态置为true</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -1494,7 +1494,7 @@ int main(){
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">69.3k</span>
+                        class="white-color">75.1k</span>
             
             
             

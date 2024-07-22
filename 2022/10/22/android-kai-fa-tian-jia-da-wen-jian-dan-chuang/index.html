@@ -54,7 +54,7 @@
 
 <meta name="generator" content="Hexo 5.4.2">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+</head>
 
 
 <body>
@@ -417,18 +417,18 @@
 <p>3个textview，文字和图片都是居中显式，高宽根据文字内容决定。</p>
 <p>处理最后一个textview的点击事件，使用类内接口，在调用时传入接口参数判断点击事件，调用AgreeClick()方法。</p>
 <p>用到Window对象设置弹窗大小、位置、动画。通过getWindow()获得Window对象，后set各种属性。新建一个drawable.xml，在里面设置Window的弧度。</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">window.setGravity(Gravity.BOTTOM);//弹窗位置
-window.setBackgroundDrawableResource(R.drawable.large_file_folder_dialog_shape);//弹窗背景
-window.setWindowAnimations(R.style.large_folder_dialog);//弹窗动画
-window.setDimAmount(0f);//全透明<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">window<span class="token punctuation">.</span><span class="token function">setGravity</span><span class="token punctuation">(</span><span class="token class-name">Gravity</span><span class="token punctuation">.</span><span class="token constant">BOTTOM</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//弹窗位置</span>
+window<span class="token punctuation">.</span><span class="token function">setBackgroundDrawableResource</span><span class="token punctuation">(</span><span class="token class-name">R</span><span class="token punctuation">.</span>drawable<span class="token punctuation">.</span>large_file_folder_dialog_shape<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//弹窗背景</span>
+window<span class="token punctuation">.</span><span class="token function">setWindowAnimations</span><span class="token punctuation">(</span><span class="token class-name">R</span><span class="token punctuation">.</span>style<span class="token punctuation">.</span>large_folder_dialog<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//弹窗动画</span>
+window<span class="token punctuation">.</span><span class="token function">setDimAmount</span><span class="token punctuation">(</span><span class="token number">0f</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//全透明</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>为了设置Dialog窗口大小和布局，使用Resources中的getDisplayMetrics()方法获得DisplayMetrics类对象，通过其中的.widthPixels()和.heightPixels()得到手机的宽和高。</p>
 <p>通过WindowManager.LayoutParams创建一个params对象，通过.attr设置window的宽高和相对位置，最后一定要调用window的.setAttributes(params)将参数传递进去才能有效果。</p>
 <p>窗口底边高度要配合导航栏高度。直接把mInitY传给window的高度就行。</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">Launcher launcher = Launcher.fromContext(context);
-if (launcher != null &amp;&amp; launcher.getDeviceProfile() != null){
-    mInitY = launcher.getDeviceProfile().getInsets().bottom;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Launcher</span> launcher <span class="token operator">=</span> <span class="token class-name">Launcher</span><span class="token punctuation">.</span><span class="token function">fromContext</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>launcher <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span> launcher<span class="token punctuation">.</span><span class="token function">getDeviceProfile</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    mInitY <span class="token operator">=</span> launcher<span class="token punctuation">.</span><span class="token function">getDeviceProfile</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getInsets</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>bottom<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>最后定义一个静态方法show用来给外部类提供方法，方法内部新建一个自定义的dialog并监听点击事件，调用.dissmiss()来消除dialog。</p>
 <h2 id="2-弹窗绘制好后实现逻辑，触发的四种逻辑。"><a href="#2-弹窗绘制好后实现逻辑，触发的四种逻辑。" class="headerlink" title="2.弹窗绘制好后实现逻辑，触发的四种逻辑。"></a>2.弹窗绘制好后实现逻辑，触发的四种逻辑。</h2><h3 id="1：首次长按文件夹（大-小）。"><a href="#1：首次长按文件夹（大-小）。" class="headerlink" title="1：首次长按文件夹（大/小）。"></a>1：首次长按文件夹（大/小）。</h3><p>ItemLongClickListener类下的onWorkspaceItemLongClick()添加逻辑。因为所有Item的长按逻辑都在这个方法里实现，所以需要进行判断。通过view.getTag()判断是文件夹还是app快捷方式。判断完成后在进行show的调用。</p>
@@ -437,15 +437,15 @@ if (launcher != null &amp;&amp; launcher.getDeviceProfile() != null){
 <h3 id="4：首次拖动应用进入文件夹）"><a href="#4：首次拖动应用进入文件夹）" class="headerlink" title="4：首次拖动应用进入文件夹）"></a>4：首次拖动应用进入文件夹）</h3><p>合并生成文件夹的逻辑是在Workspace.java下的addToExistingFolderIfNecessary()方法里实现，和第三条同理。</p>
 <h2 id="3-设置sharedPreference，保存是否是第一次操作的参数，bool类型。"><a href="#3-设置sharedPreference，保存是否是第一次操作的参数，bool类型。" class="headerlink" title="3.设置sharedPreference，保存是否是第一次操作的参数，bool类型。"></a>3.设置sharedPreference，保存是否是第一次操作的参数，bool类型。</h2><p>因为要实现第一次点击之后就不需要弹出Dialog，需要一个数据进行判断，SharedPreference保存的数据会存在一个文件下，launcher中在Utilities中定义了一个getPref(Context context)方法，返回的就是一个SharedPreference对象，只需要在调用时传入context就好。</p>
 <p>存入数据的逻辑是在show()方法中的监听点击事件里定义，在点击“知道了”以后put一个bool类型的值然后apply，接着走dissmiss()，这样只要走过四种逻辑中的任意一个，就会写入值。写入需要使用SharedPreferences.Editor对象编写。</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">SharedPreferences.Editor mUserAgreeSharedPref = Utilities.getPrefs(context).edit();
-mUserAgreeSharedPref.putBoolean("first_new_large_folder_dialog_notification", false);
-mUserAgreeSharedPref.apply();<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">SharedPreferences<span class="token punctuation">.</span>Editor</span> mUserAgreeSharedPref <span class="token operator">=</span> <span class="token class-name">Utilities</span><span class="token punctuation">.</span><span class="token function">getPrefs</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">edit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+mUserAgreeSharedPref<span class="token punctuation">.</span><span class="token function">putBoolean</span><span class="token punctuation">(</span><span class="token string">"first_new_large_folder_dialog_notification"</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+mUserAgreeSharedPref<span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p>取出数据是在判断四种逻辑时调用即可，直接通过SharedPreferences对象调用get方法取出数据进行判断。</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">boolean first_notification = Utilities.getPrefs(v.getContext()).getBoolean("first_new_large_folder_dialog_notification", true);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">boolean</span> first_notification <span class="token operator">=</span> <span class="token class-name">Utilities</span><span class="token punctuation">.</span><span class="token function">getPrefs</span><span class="token punctuation">(</span>v<span class="token punctuation">.</span><span class="token function">getContext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getBoolean</span><span class="token punctuation">(</span><span class="token string">"first_new_large_folder_dialog_notification"</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>删除sharedpreference中特定的key</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">mUserAgreeSharedPref.remove("first_new_large_folder_dialog_notification").commit();<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">mUserAgreeSharedPref<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span><span class="token string">"first_new_large_folder_dialog_notification"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">commit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h2 id="4-LottieAnimationView的使用"><a href="#4-LottieAnimationView的使用" class="headerlink" title="4.LottieAnimationView的使用"></a>4.LottieAnimationView的使用</h2><p>首先需要加入配置文件</p>
 <pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">//Lottie动画
@@ -463,19 +463,19 @@ implementation "com.airbnb.android:lottie:3.6.0"<span aria-hidden="true" class="
 /&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>接着在Java文件中配置Lottie,其中新建LottieAnimationView对象通过R.id找到对应的law，可以设置是否自动播放，是否循环播放等。最后直接play即可。</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">private LottieAnimationView mLottieAnimationView;
-//Lottie AnimationView
-mLottieAnimationView = (LottieAnimationView) findViewById(R.id.new_large_file_dialog_lottie);
-mLottieAnimationView.setImageAssetsFolder("data.json");//配置JSON
-mLottieAnimationView.loop(true);//循环播放
-////设置X轴方向上的缩放比例，0f为不可见，1f原始大小 Ps.原setScale方法在2.0.0版本后已弃用
-//mLottieAnimationView.setScaleX(0.5f);
-////设置Y轴方向上的缩放比例
-//mLottieAnimationView.setScaleY(0.5f);
-mLottieAnimationView.playAnimation();//播放动画<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">private</span> <span class="token class-name">LottieAnimationView</span> mLottieAnimationView<span class="token punctuation">;</span>
+<span class="token comment">//Lottie AnimationView</span>
+mLottieAnimationView <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">LottieAnimationView</span><span class="token punctuation">)</span> <span class="token function">findViewById</span><span class="token punctuation">(</span><span class="token class-name">R</span><span class="token punctuation">.</span>id<span class="token punctuation">.</span>new_large_file_dialog_lottie<span class="token punctuation">)</span><span class="token punctuation">;</span>
+mLottieAnimationView<span class="token punctuation">.</span><span class="token function">setImageAssetsFolder</span><span class="token punctuation">(</span><span class="token string">"data.json"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//配置JSON</span>
+mLottieAnimationView<span class="token punctuation">.</span><span class="token function">loop</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//循环播放</span>
+<span class="token comment">////设置X轴方向上的缩放比例，0f为不可见，1f原始大小 Ps.原setScale方法在2.0.0版本后已弃用</span>
+<span class="token comment">//mLottieAnimationView.setScaleX(0.5f);</span>
+<span class="token comment">////设置Y轴方向上的缩放比例</span>
+<span class="token comment">//mLottieAnimationView.setScaleY(0.5f);</span>
+mLottieAnimationView<span class="token punctuation">.</span><span class="token function">playAnimation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//播放动画</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>为了防止内存泄漏，应该在动画不需要播放的时候释放Lottie动画。</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">mLottieAnimationView.setImageAssetsFolder(null);//传一个null，防止动画在后台继续播放<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">mLottieAnimationView<span class="token punctuation">.</span><span class="token function">setImageAssetsFolder</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//传一个null，防止动画在后台继续播放</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
                 
             </div>
@@ -768,7 +768,7 @@ mLottieAnimationView.playAnimation();//播放动画<span aria-hidden="true" clas
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">69.3k</span>
+                        class="white-color">75.1k</span>
             
             
             
